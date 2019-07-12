@@ -59,13 +59,13 @@ app.get('/api/users', [TokenGuard], (req, res) => {
         name: new RegExp(query.name) || new RegExp(),
         email: new RegExp(query.email) || new RegExp()
     }
-
+    
     UserService.findAlike(options)
         .then(document => {
             if (!document[0]) {
                 return res.status(404).json({
                     success: false,
-                    error: 'User Not Found'
+                    error: 'No Users Were Found'
                 })
             }
             return res.json( //responds with a new object merged with success flag
@@ -90,7 +90,7 @@ app.get('/api/users', [TokenGuard], (req, res) => {
  *  to create ADMIN_ROLE or ommit them to create PLAYER_ROLES
  *  @param body payload with user arrays, body = [{user},{user}...]
  */
-app.post('/api/user', [TokenGuard, RoleGuard], (req, res) => {
+app.post('/api/user', [TokenGuard], (req, res) => {
 
     let users = req.body
     UserService.createOneOrMany(users)
@@ -98,7 +98,7 @@ app.post('/api/user', [TokenGuard, RoleGuard], (req, res) => {
             if (!document) { //never goes through here but just in case
                 return res.status(500).json({
                     success: false,
-                    error: 'Severe Conflict While Saving User'
+                    error: 'Severe Conflict While Saving Users'
                 })
             }
 
@@ -122,7 +122,7 @@ app.post('/api/user', [TokenGuard, RoleGuard], (req, res) => {
  *  @body user object
  */
 
-app.put('/user/:id', [TokenGuard], (req, res) => {
+app.put('/user/:id', [TokenGuard, RoleGuard], (req, res) => {
 
     let id = req.params.id
     let user = req.body

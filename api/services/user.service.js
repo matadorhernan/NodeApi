@@ -9,14 +9,15 @@ const CompletedUtil = require('../utils/completed.util')
 module.exports = class UserService {
 
     async findAll() {
-        return await User.find().populate('tournaments', '-password').exec()
+        return await User.find({deleted: false}).populate('tournaments', '-password').exec()
     }
 
     async findAlike(options) {
+        options.deleted = false
         return await User.find(options).populate('tournaments', '-password').exec()
     }
     async findOneById(id) {
-        return await User.findById(id).populate('tournaments', '-password').exec()
+        return await User.findById(id).where('deleted').equals(false).populate('tournaments', '-password').exec()
     }
 
     async createOneOrMany(user) {
