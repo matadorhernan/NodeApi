@@ -1,4 +1,4 @@
-// environmets 
+// environments 
 require('../environments/environment')
 // dependencies
 const bcrypt = require('bcrypt');

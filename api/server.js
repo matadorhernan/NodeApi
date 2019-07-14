@@ -1,4 +1,4 @@
-// environmets 
+// environments 
 require('./environments/environment')
 // npm dependencies
 const express = require('express')

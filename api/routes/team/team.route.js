@@ -81,7 +81,7 @@ app.get('/api/teams', [TokenGuard], (req, res) => {
 })
 
 /** $INSERT /api/team
- *  Inserts a new team or a bunch of teams depending on the lenght of the payload
+ *  Inserts a new team or a bunch of teams depending on the length of the payload
  *  using body as the payload and TeamService to handle requests
  *  Only ADMINS have access to this route
  *  @param body payload with teams arrays, body = [{team},{team}...]

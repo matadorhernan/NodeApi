@@ -8,6 +8,7 @@ const UserGuard = require('../../guards/user.guard')
 //Modules
 const UserService = require('../../services/user.service')
 const PaginationUtil = require('../../utils/pagination.util')
+const MailingService = require('../../services/mailing.service')
 
 /** $QUERY /api/user/:id 
  *  Gets a single user by id and id is to be provided in params
@@ -89,9 +90,9 @@ app.get('/api/users', [TokenGuard], (req, res) => {
 
 })
 /** $INSERT /api/user
- *  Inserts a new user or a bunch of users depending on the lenght of the payload
- *  using body as the payload and _userservice to handle requests you can set ROLES
- *  to create ADMIN_ROLE or ommit them to create PLAYER_ROLES
+ *  Inserts a new user or a bunch of users depending on the length of the payload
+ *  using body as the payload and _UserService to handle requests you can set ROLES
+ *  to create ADMIN_ROLE or omit them to create PLAYER_ROLES
  *  @param body payload with user arrays, body = [{user},{user}...]
  */
 app.post('/api/user', [TokenGuard, RoleGuard], (req, res) => {
@@ -106,6 +107,10 @@ app.post('/api/user', [TokenGuard, RoleGuard], (req, res) => {
                     error: 'Severe Conflict While Saving Users'
                 }
             }
+
+            let _MailingService = new MailingService()
+            _MailingService.sendInvitesForAdmins(document)
+
             return res.json({
                 success: true,
                 message: 'Users Successfully Saved'
@@ -159,10 +164,10 @@ app.put('/user/:id', [TokenGuard, UserGuard], (req, res) => {
         })
 })
 
-/** $LOGIC ERRASE
+/** $LOGIC ERASE 
  *  If the admin wishes to ban an user from the platform he may delete that said username
  *  you need to provide an id, Admins can delete anyone from the platform including other admins
- *  or themselves, while Users can only delete themselves
+ *  or themselves, while Users can only delete themselves 
  */
 
 app.delete('/api/user/:id', [TokenGuard, UserGuard], (req, res) => {

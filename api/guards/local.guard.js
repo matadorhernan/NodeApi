@@ -1,4 +1,4 @@
-// environmets 
+// environments 
 require('../environments/environment')
 // dependencies
 const bcrypt = require('bcrypt');
@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const AuthService = require('../services/auth.service')
 
 /** $GUARD
- *  User needs to be able to login but to login we recieve a body object and 
+ *  User needs to be able to login but to login we receive a body object and 
  *  save the body object as the user object, I then compare the email and password
  *  for exact match with mongoose. Deleted or unregistered Users will not login
  */

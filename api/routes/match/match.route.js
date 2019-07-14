@@ -38,7 +38,7 @@ app.get('/api/match/:id', [TokenGuard], (req, res) => {
 })
 
 /** $QUERY
- * Needs an started tournament, id on params is a tournamnet id
+ * Needs an started tournament, id on params is a tournament id
  * @param id match.tournament
  */
 app.get('/api/matches/:id', [TokenGuard], (req, res) => {

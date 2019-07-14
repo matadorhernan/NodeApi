@@ -82,9 +82,9 @@ app.get('/api/news', [TokenGuard], (req, res) => {
 
 /** $INSERT /api/news
  *  Inserts a new new or a bunch of news depending on
- *  the lenght of the payload using body as the payload and NewsService
+ *  the length of the payload using body as the payload and NewsService
  *  to handle requests.All Authenticated users have access to this route
- *  uses the TokenGuard to read who is posting an anouncement
+ *  uses the TokenGuard to read who is posting an announcement
  * 
  *  @param body payload with tournament arrays, body = [{tournament},{tournament}...]
  */
@@ -92,7 +92,7 @@ app.get('/api/news', [TokenGuard], (req, res) => {
 app.post('/api/news', [TokenGuard], (req, res) => {
 
     let news = req.body
-    news.poster = req.usuer.email //user email from token guard
+    news.poster = req.user.email //user email from token guard
 
     NewsService.createOneOrMany(news)
         .then(document => {

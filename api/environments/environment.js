@@ -1,16 +1,16 @@
 
 // ====================================
-// Enviroment PORT
+// Environment PORT
 // ====================================
 process.env.WHITELIST = ['http://0.0.0.0:4200'];
 
 // ====================================
-// Enviroment PORT
+// Environment PORT
 // ====================================
 process.env.PORT = 80;
 
 //================================
-// Vencimiento del token
+// Token Expiration
 // ===============================
 
 process.env.TOKEN_EXPIRATION  = '30d';

@@ -87,7 +87,7 @@ app.get('/api/tournaments', [TokenGuard], (req, res) => {
 
 /** $INSERT /api/tournament
  *  Inserts a new tournament or a bunch of tournaments depending on
- *  the lenght of the payload using body as the payload and TournamentService
+ *  the length of the payload using body as the payload and TournamentService
  *  to handle requests. Only ADMINS have access to this route
  * 
  *  @param body payload with tournament arrays, body = [{tournament},{tournament}...]

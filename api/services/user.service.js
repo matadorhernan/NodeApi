@@ -1,4 +1,4 @@
-// environmets 
+// environments 
 require('../environments/environment')
 // dependencies
 const User = require('../models/user.schema')

@@ -4,8 +4,8 @@ const AuthService = require('../services/auth.service')
  * DynamicGuard needs to go after TokenGuard (always)
  * the reason for that is that TokenGuard decodes the token and inserts it
  * in the request object, and this guard checks for either admin privileges
- * or local privileges on that object, this is a LocalGuard convined with RoleGuard
- * PLAYER_ROLES trying to modify othe PlayerRoles will not pass this Guard
+ * or local privileges on that object, this is a LocalGuard combined with RoleGuard
+ * PLAYER_ROLES trying to modify other PlayerRoles will not pass this Guard
  */
 let UserGuard = (request, response, next) => {
 

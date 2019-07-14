@@ -1,6 +1,6 @@
 // npm dependencies
 const jwt = require('jsonwebtoken')
-// environmets 
+// environments 
 require('../environments/environment')
 
 
