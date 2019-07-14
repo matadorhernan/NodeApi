@@ -1,4 +1,5 @@
 const NodeMailerUtil = require('../utils/nodemailer.util')
+const _ = require('underscore')
 module.exports = class MailingService {
 
     constructor(){

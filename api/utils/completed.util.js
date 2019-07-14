@@ -13,14 +13,14 @@ module.exports = class CompletedUtil {
     /** $UTILITY
      *  Check User consists on finding which properties are missing from array and 
      *  filtering extra ones, adding database updates and finally if all properties are
-     *  met the users recieves a boolean flag completed 
-     * @param {*} newUser the incomming user
+     *  met the users receives a boolean flag completed 
+     * @param {*} newUser the incoming user
      * @param {*} user the old user from find
      */
     
     checkUser(newUser, user){
-
-        let filter = ['name', 'email', 'tournaments']
+        newUser = newUser
+        let filter = ['name', 'email', 'tournaments','signed']
 
         if(_.has(newUser, 'password')){
             filter.push('password')
@@ -33,7 +33,8 @@ module.exports = class CompletedUtil {
         if (
             (_.has(newUser, 'name') || user.name != '') &&
             (_.has(newUser, 'password') || user.password != '') &&
-            (_.has(newUser, 'email') || user.email != '')
+            (_.has(newUser, 'email') || user.email != '') &&
+            (_.has(newUser, 'signed') || user.signed != false)
         ) {
             newUser.completed = true //adds completed
         }

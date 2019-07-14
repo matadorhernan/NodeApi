@@ -9,19 +9,20 @@ const AuthService = require('../services/auth.service')
  */
 let UserGuard = (request, response, next) => {
 
-    let id = req.params.id //id being Modified
+    let id = request.params.id //id being Modified
     let user = request.user //user from payload
     let _AuthService = new AuthService()
 
+
     _AuthService.findAlike({ _id: id, deleted: false, signed: true }) // document being modified
-        .then(document => {
-            if (!document[0] ||
-                user._id != document._id || //user trying to modify others
+        .then(document => {           
+            if (!document[0] || (
+                user._id != document[0]._id && //user trying to modify others
                 user.role != 'ADMIN_ROLE' // user trying to modify others as player 
-            ) {
+            )) {
                 throw error = {
                     success: false,
-                    error: 'Unauthorized User Request'
+                    error: 'Unauthorized User Request, User Not Registered?'
                 }
             }
             next()

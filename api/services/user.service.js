@@ -10,15 +10,15 @@ const CompletedUtil = require('../utils/completed.util')
 module.exports = class UserService {
 
     async findAll() {
-        return await User.find({deleted: false}).populate('tournaments', '-password').exec()
+        return await User.find({deleted: false}).populate('tournaments').exec()
     }
 
     async findAlike(options) {
         options.deleted = false
-        return await User.find(options).populate('tournaments', '-password').exec()
+        return await User.find(options).populate('tournaments').exec()
     }
     async findOneById(id) {
-        return await User.findById(id).where('deleted').equals(false).populate('tournaments', '-password').exec()
+        return await User.findById(id).where('deleted').equals(false).populate('tournaments').exec()
     }
 
     async createOneOrMany(user) {
@@ -50,10 +50,10 @@ module.exports = class UserService {
         }
         
         let _CompletedUtil = new CompletedUtil()
-        newUser = new User(_CompletedUtil.checkUser(newUser, user))
+        newUser = _CompletedUtil.checkUser(newUser, user)
         
         return await User.findByIdAndUpdate(id, newUser,
-            { new: true, runValidators: true }).populate('tournaments', '-password').exec()
+            { new: true, runValidators: true }).populate('tournaments').exec()
     }
 
     async deleteOne(id){

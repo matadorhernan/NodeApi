@@ -38,7 +38,8 @@ app.post('/api/auth/login', [LocalGuard], (req, res) => {
 
 })
 
-app.put('/api/auth/signup/:id', [RegisterGuard], (req, res) => {
+app.put('/api/auth/sign/:id', [RegisterGuard], (req, res) => {
+
     let body = req.body
     let id = req.params.id
 
@@ -47,7 +48,7 @@ app.put('/api/auth/signup/:id', [RegisterGuard], (req, res) => {
 
     let _UserService = new UserService()
 
-    _UserService.updateOne(id, { body })
+    _UserService.updateOne(id, body)
         .then(document => {
             if(!document){
                 throw error = {
@@ -55,6 +56,10 @@ app.put('/api/auth/signup/:id', [RegisterGuard], (req, res) => {
                     error: 'Unauthorized Request From User, Already Registered'
                 }
             }
+            return res.json({
+                success: true,
+                documents: document
+            })
         })
         .catch(error => {
             return res.status(500).json({

@@ -107,7 +107,7 @@ app.post('/api/user', [TokenGuard, RoleGuard], (req, res) => {
                     error: 'Severe Conflict While Saving Users'
                 }
             }
-
+            
             let _MailingService = new MailingService()
             _MailingService.sendInvitesForAdmins(document)
 
@@ -132,14 +132,19 @@ app.post('/api/user', [TokenGuard, RoleGuard], (req, res) => {
  *  @body user object
  */
 
-app.put('/user/:id', [TokenGuard, UserGuard], (req, res) => {
+app.put('/api/user/:id', [TokenGuard, UserGuard], (req, res) => {
 
     let id = req.params.id
-    let user = req.body.user
-
+    let user = {
+        name : req.body.name,
+        email : req.body.email,
+        password : req.body.password,
+        tournaments: req.body.tournaments
+    }
     let _UserService = new UserService()
     _UserService.updateOne(id, user)
         .then(document => {
+
             if (!document) { //never goes through here but just in case
                 throw error = {
                     success: false,
