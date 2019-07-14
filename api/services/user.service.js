@@ -3,6 +3,7 @@ require('../environments/environment')
 // dependencies
 const User = require('../models/user.schema')
 const bcrypt = require('bcrypt');
+const _ = require('underscore')
 //utils
 const CompletedUtil = require('../utils/completed.util')
 
@@ -21,15 +22,15 @@ module.exports = class UserService {
     }
 
     async createOneOrMany(user) {
-        if (user.length == 1) {
+        if (_.isObject(user)) {
             if(_.has(user, 'password')){
-                user.password = bcrypt.hashSync(user.password, process.env.SALT_ROUNDS)
+                user.password = bcrypt.hashSync(user.password, 10)
             } 
             user = new User(user)
-        } else if (user.length > 1) {
+        } else {
             user.forEach(insert => {
                 if(_.has(insert, 'password')){
-                    insert.password = bcrypt.hashSync(insert.password, process.env.SALT_ROUNDS)
+                    insert.password = bcrypt.hashSync(insert.password, 10)
                 } 
                 return insert = new User(insert)
             })
@@ -47,8 +48,9 @@ module.exports = class UserService {
                 error: 'No Users Where Found'
             }
         }
-
-        newUser = new User(CompletedUtil.checkUser(newUser, user))
+        
+        let _CompletedUtil = new CompletedUtil()
+        newUser = new User(_CompletedUtil.checkUser(newUser, user))
         
         return await User.findByIdAndUpdate(id, newUser,
             { new: true, runValidators: true }).populate('tournaments', '-password').exec()

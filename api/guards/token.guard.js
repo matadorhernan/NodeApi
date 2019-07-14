@@ -16,7 +16,7 @@ let TokenGuard = (request, response, next) => {
     jwt.verify(token, process.env.SEED, (error, decoded) => {
 
         //verify payload
-
+        
         if (error) {
             return response.status(401).json({
                 success: false,

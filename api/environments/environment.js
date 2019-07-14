@@ -7,24 +7,24 @@ process.env.WHITELIST = ['http://0.0.0.0:4200'];
 // ====================================
 // Enviroment PORT
 // ====================================
-process.env.PORT = process.env.PORT || 80;
+process.env.PORT = 80;
 
 //================================
 // Vencimiento del token
 // ===============================
 
-process.env.TOKEN_EXPIRATION  = '48h';
+process.env.TOKEN_EXPIRATION  = '30d';
 
 //================================
 // SEED
 // ===============================
 
-process.env.SEED = process.env.SEED || '#!QWE#$';
+process.env.SEED = '#!QWE#$';
 
 //================================
 // SALT ROUNDS
 // ===============================
-process.env.SALT_ROUNDS = process.env.SALT_ROUNDS || 10;
+process.env.SALT_ROUNDS = 10;
 //================================
 // BD
 // ===============================

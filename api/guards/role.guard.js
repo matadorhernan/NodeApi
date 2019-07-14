@@ -1,8 +1,8 @@
 /** $GUARD
- * authRolling needs to go after authToken (always)
- * the reason for that is that authToken decodes the token and inserts it
- * in the request object, and this guard checks for privileges,
- * privileges are set in the payload of the request token
+ * RoleGuard needs to go after TokenGuard (always)
+ * the reason for that is that TokenGuard decodes the token and inserts it
+ * in the request object, and this guard checks for privileges on that object,
+ * if Token is not ADMIN_ROLE user will not pass this guard
  */
 
 let RoleGuard = (request, response, next) => {

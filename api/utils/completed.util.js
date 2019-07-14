@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
  *  A class for checking whether or not an incomming user is completed,
  *  the update route PUT cannot modify roles because it is open to users
  */
+
 module.exports = class CompletedUtil {
 
     /** $UTILITY
@@ -23,7 +24,7 @@ module.exports = class CompletedUtil {
 
         if(_.has(newUser, 'password')){
             filter.push('password')
-            newUser.password = bcrypt.hashSync(newUser.password, process.env.SALT_ROUNDS)
+            newUser.password = bcrypt.hashSync(newUser.password, 10)
         }
         
         newUser = _.pick(newUser, filter) // filters whatever admin enters
@@ -38,7 +39,6 @@ module.exports = class CompletedUtil {
         }
         
         newUser.updated = Date.now()
-
         return newUser
 
     }

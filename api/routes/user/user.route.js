@@ -4,6 +4,7 @@ const app = express();
 //Guards
 const TokenGuard = require('../../guards/token.guard')
 const RoleGuard = require('../../guards/role.guard')
+const UserGuard = require('../../guards/user.guard')
 //Modules
 const UserService = require('../../services/user.service')
 const PaginationUtil = require('../../utils/pagination.util')
@@ -15,7 +16,8 @@ const PaginationUtil = require('../../utils/pagination.util')
  */
 app.get('/api/user/:id', [TokenGuard], (req, res) => {
     let id = req.params.id
-    UserService.findOneById(id)
+    let _UserService = new UserService()
+    _UserService.findOneById(id)
         .then(document => {
             if (!document) {
                 return res.status(404).json({
@@ -59,20 +61,22 @@ app.get('/api/users', [TokenGuard], (req, res) => {
         name: new RegExp(query.name) || new RegExp(),
         email: new RegExp(query.email) || new RegExp()
     }
-    
-    UserService.findAlike(options)
+
+    let _UserService = new UserService()
+    let _PaginationUtil = new PaginationUtil()
+    _UserService.findAlike(options)
         .then(document => {
             if (!document[0]) {
-                return res.status(404).json({
+                throw error = {
                     success: false,
                     error: 'No Users Were Found'
-                })
+                }
             }
-            return res.json( //responds with a new object merged with success flag
-                ...{
-                    success: true
-                },
-                ...PaginationUtil.paginate(document, pagination)
+            return res.json(
+                Object.assign(
+                    { success: true },
+                    _PaginationUtil.paginate(document, pagination)
+                )
             )
         })
         .catch(error => {
@@ -86,25 +90,25 @@ app.get('/api/users', [TokenGuard], (req, res) => {
 })
 /** $INSERT /api/user
  *  Inserts a new user or a bunch of users depending on the lenght of the payload
- *  using body as the payload and userservice to handle requests you can set ROLES
+ *  using body as the payload and _userservice to handle requests you can set ROLES
  *  to create ADMIN_ROLE or ommit them to create PLAYER_ROLES
  *  @param body payload with user arrays, body = [{user},{user}...]
  */
-app.post('/api/user',  (req, res) => {
+app.post('/api/user', [TokenGuard, RoleGuard], (req, res) => {
 
     let users = req.body
-    UserService.createOneOrMany(users)
+    let _UserService = new UserService()
+    _UserService.createOneOrMany(users)
         .then(document => {
             if (!document) { //never goes through here but just in case
-                return res.status(500).json({
+                throw error = {
                     success: false,
                     error: 'Severe Conflict While Saving Users'
-                })
+                }
             }
-
             return res.json({
                 success: true,
-                message: `${document.length} Users Successfully Saved`
+                message: 'Users Successfully Saved'
             })
         })
         .catch(error => {
@@ -117,22 +121,25 @@ app.post('/api/user',  (req, res) => {
 
 /** $MODIFY
  *  Can only modify one user at a time, give a parameter id and a object user
- *  at payload to modify user will not let modify roles
+ *  at payload to modify user. will not let modify roles 
+ *  Admins are to be created with post
  *  @param id user._id
  *  @body user object
  */
 
-app.put('/user/:id', [TokenGuard, RoleGuard], (req, res) => {
+app.put('/user/:id', [TokenGuard, UserGuard], (req, res) => {
 
     let id = req.params.id
-    let user = req.body
-    UserService.updateOne(id, user)
+    let user = req.body.user
+
+    let _UserService = new UserService()
+    _UserService.updateOne(id, user)
         .then(document => {
             if (!document) { //never goes through here but just in case
-                return res.status(500).json({
+                throw error = {
                     success: false,
                     error: 'Severe Conflict While Updating User'
-                })
+                }
             }
 
             return res.json({
@@ -154,13 +161,15 @@ app.put('/user/:id', [TokenGuard, RoleGuard], (req, res) => {
 
 /** $LOGIC ERRASE
  *  If the admin wishes to ban an user from the platform he may delete that said username
- *  you need to provide an id, Admins can delete other Admins from the platform
+ *  you need to provide an id, Admins can delete anyone from the platform including other admins
+ *  or themselves, while Users can only delete themselves
  */
 
-app.delete('/api/user/:id', [TokenGuard, RoleGuard], (req, res) => {
+app.delete('/api/user/:id', [TokenGuard, UserGuard], (req, res) => {
 
     let id = req.params.id
-    UserService.deleteOne(id)
+    let _UserService = new UserService()
+    _UserService.deleteOne(id)
         .then(document => {
 
             if (!document) { //never goes through here but just in case

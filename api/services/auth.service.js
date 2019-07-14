@@ -2,6 +2,7 @@
 require('../environments/environment')
 // dependencies
 const jwt = require('jsonwebtoken')
+const User = require('../models/user.schema')
 
 module.exports = class AuthService {
 
@@ -9,12 +10,16 @@ module.exports = class AuthService {
 
         let expiresIn = process.env.TOKEN_EXPIRATION
 
-        return jwt.sign({user},
+        return jwt.sign({ user: user[0] },
             process.env.SEED, { expiresIn }
         )
-        
-    }
 
-    constructor(){}
+    }
+    async findAlike(Option) {
+        return await User.find(Option).select(
+            'name tournaments role completed created updated deleted _id email password'
+        ).exec()
+    }
+    constructor() { }
 
 };

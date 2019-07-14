@@ -20,7 +20,8 @@ let userSchema = new Schema({
 
     password: {
         type: String,
-        required: true
+        required: true,
+        select: false
     },
 
     tournaments: [{
@@ -36,6 +37,11 @@ let userSchema = new Schema({
     },
 
     completed :{ // flag for finished sign ups of users
+        type: Boolean,
+        default:false
+    },
+
+    signed: {
         type: Boolean,
         default:false
     },
