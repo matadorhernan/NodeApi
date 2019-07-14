@@ -25,7 +25,7 @@ let userSchema = new Schema({
 
     tournaments: [{
         type: Schema.Types.ObjectId,
-        ref:'Tournaments',
+        ref:'Tournament',
         default: []
     }],
 

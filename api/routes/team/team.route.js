@@ -119,7 +119,7 @@ app.post('/api/team', [TokenGuard, RoleGuard], (req, res) => {
  *  @body team object
  */
 
-app.put('/team/:id', [TokenGuard, RoleGuard], (req, res) => {
+app.put('/api/team/:id', [TokenGuard, RoleGuard], (req, res) => {
 
     let id = req.params.id
     let team = req.body

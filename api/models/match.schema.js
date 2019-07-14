@@ -6,7 +6,7 @@ let matchSchema = new Schema({
 
     tournament:{ 
         type: Schema.Types.ObjectId,
-        ref: 'TorneosModel',
+        ref: 'Tournament',
         required: [true, 'The match needs a specified tournament']
     },
 
@@ -20,17 +20,17 @@ let matchSchema = new Schema({
         default: ''
     },
 
-    localTeam:[{
+    localTeam:{
         type: Schema.Types.ObjectId,
         ref: 'Team',
-        default:[]        
-    }],
+        default: null        
+    },
 
-    visitorTeam: [{
+    visitorTeam:{
         type: Schema.Types.ObjectId,
         ref: 'Team',
-        default:[]
-    }],
+        default:null
+    },
 
     localScore:{
         type: Number,
@@ -42,7 +42,12 @@ let matchSchema = new Schema({
         default: 0
     },
 
-    bracketPosition: { // flag to organize brackets
+    round: {
+        type: Number,
+        default: 0,
+    },
+
+    position: { // flag to organize brackets
         type: Number,
         default: 0
     },

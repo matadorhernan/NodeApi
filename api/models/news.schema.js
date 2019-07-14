@@ -13,9 +13,13 @@ let newsSchema = new Schema({
     tournament: {
         required: [true, 'You need to specify a tournament'],
         type: Schema.Types.ObjectId,
-        ref: 'Tournaments'
+        ref: 'Tournament'
     },
-
+    poster:{
+        required: [true, 'Anonymous posts are not allowed here'],
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     message: {
         type: String,
         require: [true, 'You need to redact a message']

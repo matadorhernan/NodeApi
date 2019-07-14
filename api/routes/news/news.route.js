@@ -5,24 +5,24 @@ const app = express()
 const TokenGuard = require('../../guards/token.guard')
 const RoleGuard = require('../../guards/role.guard')
 //modules
-const TournamentService = require('../../services/tournament.service')
+const NewsService = require('../../services/news.service')
 const PaginationUtil = require('../../utils/pagination.util')
 
-/** $QUERY /api/tournament/:id 
- *  Gets a single tournament by id and id is to be provided in params
+/** $QUERY /api/news/:id 
+ *  Gets a single new by id and id is to be provided in params
  *  all authenticated users have access to this route 
- *  @param id team._id
+ *  @param id news._id
  */
-app.get('/api/tournament/:id', [TokenGuard], (req, res) => {
+app.get('/api/news/:id', [TokenGuard], (req, res) => {
 
     let id = req.params.id;
 
-    TournamentService.findOneById(id)
+    NewsService.findOneById(id)
         .then(document => {
             if (!document) {
                 return res.status(404).json({
                     success: false,
-                    error: 'Tournament Not Found'
+                    error: 'News Not Found'
                 })
             }
             return res.json({
@@ -36,30 +36,25 @@ app.get('/api/tournament/:id', [TokenGuard], (req, res) => {
                 error
             })
         })
-
 })
 
-/** $QUERY /api/tournaments?name=name?page=page?limit=limit
- *  Gets a every single tournament and search includes name
- *  sport, modality, and all authenticated users have access to 
- *  this route 
+/** $QUERY /api/news?tournament=tournament?page=page?limit=limit
+ *  Gets all news, you can filter your search with a tournament. 
+ *  All authenticated users have access to this route 
  * 
- *  @param name optional  
- *  @param sport optional 
- *  @param modality optional 
+ *  @param tournament optional id
  *  @param page optional  
  *  @param limit optional 
  */
-app.get('/api/tournaments', [TokenGuard], (req, res) => {
+app.get('/api/news', [TokenGuard], (req, res) => {
+    
     let query = req.query
     let pagination = {
         page: query.page || 1,
         limit: query.page || 0,
     }
     let options = {
-        name: new RegExp(query.name) || new RegExp(),
-        sport: new RegExp(query.sport) || new RegExp(),
-        modality: new RegExp(query.modality) || new RegExp(),
+        tournament: new RegExp(query.tournament) || new RegExp(),
     }
 
     TournamentService.findAlike(options)
@@ -67,7 +62,7 @@ app.get('/api/tournaments', [TokenGuard], (req, res) => {
             if (!document[0]) {
                 return res.status(404).json({
                     success: false,
-                    error: 'No Tournaments Were Found'
+                    error: 'No News Were Found'
                 })
             }
             return res.json( //responds with a new object merged with success flag
@@ -85,28 +80,31 @@ app.get('/api/tournaments', [TokenGuard], (req, res) => {
         })
 })
 
-/** $INSERT /api/tournament
- *  Inserts a new tournament or a bunch of tournaments depending on
- *  the lenght of the payload using body as the payload and TournamentService
- *  to handle requests. Only ADMINS have access to this route
+/** $INSERT /api/news
+ *  Inserts a new new or a bunch of news depending on
+ *  the lenght of the payload using body as the payload and NewsService
+ *  to handle requests.All Authenticated users have access to this route
+ *  uses the TokenGuard to read who is posting an anouncement
  * 
  *  @param body payload with tournament arrays, body = [{tournament},{tournament}...]
  */
-app.post('/api/tournament', [TokenGuard, RoleGuard], (req, res) => {
 
-    let tournaments = req.body
+app.post('/api/news', [TokenGuard], (req, res) => {
 
-    TournamentService.createOneOrMany(tournaments)
+    let news = req.body
+    news.poster = req.usuer.email //user email from token guard
+
+    NewsService.createOneOrMany(news)
         .then(document => {
             if (!document) { //never goes through here but just in case
                 return res.status(500).json({
                     success: false,
-                    error: 'Severe Conflict While Saving TournamentS'
+                    error: 'Severe Conflict While Saving News'
                 })
             }
             return res.json({
                 success: true,
-                message: `${document.length} Tournaments Successfully Saved`
+                message: `${document.length} News Successfully Saved`
             })
         })
         .catch(error => {
@@ -118,22 +116,22 @@ app.post('/api/tournament', [TokenGuard, RoleGuard], (req, res) => {
 })
 
 /** $MODIFY
- *  Can only modify one tournament at a time, give a parameter id and a object 
- *  tournament at payload to modify tournament.
- *  @param id tournament._id
- *  @body tournament object
+ *  Can only modify one announcement at a time, give a parameter id and a object 
+ *  news at payload to modify news.
+ *  @param id news._id
+ *  @body news object
  */
 
-app.put('/api/tournament/:id', [TokenGuard, RoleGuard], (req, res) => {
+app.put('/api/news/:id', [TokenGuard, RoleGuard], (req, res) => {
 
     let id = req.params.id
-    let tournament = req.body
-        TournamentService.updateOne(id, tournament)
+    let news = req.body
+        NewsService.updateOne(id, news)
         .then(document => {
             if (!document) { //never goes through here but just in case
                 return res.status(500).json({
                     success: false,
-                    error: 'Severe Conflict While Updating Tournament'
+                    error: 'Severe Conflict While Updating News'
                 })
             }
             return res.json({
