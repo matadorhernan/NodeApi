@@ -90,7 +90,7 @@ app.get('/api/users', [TokenGuard], (req, res) => {
  *  to create ADMIN_ROLE or ommit them to create PLAYER_ROLES
  *  @param body payload with user arrays, body = [{user},{user}...]
  */
-app.post('/api/user', [TokenGuard], (req, res) => {
+app.post('/api/user',  (req, res) => {
 
     let users = req.body
     UserService.createOneOrMany(users)

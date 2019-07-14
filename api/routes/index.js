@@ -4,6 +4,7 @@ const app = express();
 //load modules here from routes
 
 app.use(require('./auth/auth.route'))
+app.use(require('./match/match.route'))
 app.use(require('./news/news.route'))
 app.use(require('./stats/stats.route'))
 app.use(require('./team/team.route'))

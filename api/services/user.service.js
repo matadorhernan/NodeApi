@@ -1,5 +1,5 @@
 // environmets 
-require('./environments/environment')
+require('../environments/environment')
 // dependencies
 const User = require('../models/user.schema')
 const bcrypt = require('bcrypt');

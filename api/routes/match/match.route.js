@@ -1,9 +1,11 @@
 const express = require('express')
 const app = express()
+const _ = require('underscore');
 //Guards
 const TokenGuard = require('../../guards/token.guard')
 //modules
 const MatchService = require('../../services/match.service')
+const MailingService = require('../../services/mailing.service')
 const TournamentService = require('../../services/tournament.service')
 const TournamentUtil = require('../../utils/tournament.util')
 
@@ -12,7 +14,7 @@ const TournamentUtil = require('../../utils/tournament.util')
  * @param id match._id
  */
 
-api.get('/api/match/:id', [TokenGuard], (req, res) => {
+app.get('/api/match/:id', [TokenGuard], (req, res) => {
     let id = req.params.id
     MatchService.findOneById(id)
         .then(document => {
@@ -63,8 +65,8 @@ app.get('/api/matches/:id', [TokenGuard], (req, res) => {
 })
 
 /** $INITIAL
- *  Starts the whole tournament and its matches based on ist modality
- *  available modalities are roundRobin, knockOut, playOffs, anything else 
+ *  Starts the whole tournament and its matches based on its modality,
+ *  available modalities are roundRobin, knockOut, playOffs. Anything else 
  *  is not supported, and to advance please use route scores
  *  
  *  @param id match.tournament
@@ -89,7 +91,9 @@ app.post('/api/matches/:id', (req, res) => { // returns a started tournament wit
             return TournamentService.update(id, { matches: matchIds }) //inserts matches on tournament and chains its promise
         }) 
         .then(document => {
-            //send mails here
+            
+            MailingService.sendInvitesForTournament(document)
+
             return res.json({
                 success: true,
                 documents: document

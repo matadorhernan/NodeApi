@@ -32,9 +32,9 @@ process.env.SALT_ROUNDS = process.env.SALT_ROUNDS || 10;
 let urlDB;
 
 if (process.env.NODE_ENV == 'dev') {
-    urlDB = 'mongodb+srv://CDLG_BACKEND:codellge123@cluster0-cg9y7.mongodb.net/test?retryWrites=true&w=majority'
+    urlDB = 'mongodb+srv://miguelesvida:bMCyIaqgtBSTB8NU@cluster0-lpoyb.mongodb.net/test?retryWrites=true&w=majority'
 } else {
-    urlDB = 'mongodb+srv://CDLG_BACKEND:codellge123@cluster0-cg9y7.mongodb.net/test?retryWrites=true&w=majority';
+    urlDB = 'mongodb+srv://miguelesvida:bMCyIaqgtBSTB8NU@cluster0-lpoyb.mongodb.net/test?retryWrites=true&w=majority';
 }
 
 process.env.URLDB = urlDB;

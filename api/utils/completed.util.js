@@ -1,4 +1,4 @@
-require('./environments/environment')
+require('../environments/environment')
 // dependencies
 const _ = require('underscore')
 const bcrypt = require('bcrypt');

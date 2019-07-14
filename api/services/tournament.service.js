@@ -44,20 +44,23 @@ module.exports = class TournamentService {
         const team = await Tournament.findById(id).exec()
 
         if (!team._id) {
-            return {
+            throw error = {
                 success: false,
                 message: 'No Teams Where Found'
             }
         }
 
-        return await Tournament.findByIdAndUpdate(id, newTeam,
-            { new: true, runValidators: true }).populate('matches').populate({
-                path: 'teams',
-                populate: { path: 'players', select: '-password' }
-            }).exec()
+        return await Tournament.findByIdAndUpdate(
+            id,
+            newTeam,
+            { new: true, runValidators: true }).populate(
+                'matches').populate({
+                    path: 'teams',
+                    populate: { path: 'players', select: '-password' }
+                }).exec()
 
     }
 
     constructor() { }
 
-};
+}

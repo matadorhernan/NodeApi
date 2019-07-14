@@ -2,11 +2,6 @@ const mongoose = require('mongoose')
 
 let Schema = mongoose.Schema
 
-let supportedTournaments = {
-    VALUES: ['roundRobin', 'knockOut', 'playOffs'],
-    message: '{VALUE} no es una modalidad valida'
-}
-
 let tournamentSchema = new Schema({
     name: {
         type: String,
@@ -22,7 +17,7 @@ let tournamentSchema = new Schema({
     modality: {
         type: String,
         required: [true, 'The trounament needs a modality'],
-        enum: supportedTournaments
+        enum: ['roundRobin', 'knockOut', 'playOffs']
     },
 
     started: { // flag for started tournaments
