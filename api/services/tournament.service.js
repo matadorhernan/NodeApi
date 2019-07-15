@@ -6,22 +6,22 @@ module.exports = class TournamentService {
     async findAll() {
         return await Tournament.find().populate('matches').populate({
             path: 'teams',
-            populate: { path: 'players', select: '-password' }
+            populate: {path: 'players'}
         }).exec()
     }
 
     async findAlike(options) {
-        return await Tournament.find(Options).populate('matches').populate({
+        return await Tournament.find(options).populate('matches').populate({
             //no need to populate teams here
             path: 'teams',
-            populate: { path: 'players', select: '-password' }
+            populate: {path: 'players'}
         }).exec()
     }
 
     async findOneById(id) {
         return await Tournament.findById(id).populate('matches').populate({
             path: 'teams',
-            populate: { path: 'players', select: '-password' }
+            populate: {path: 'players'}
         }).exec()
     }
 
@@ -39,7 +39,7 @@ module.exports = class TournamentService {
 
     }
 
-    async update(id, newTeam) {
+    async updateOne(id, newTeam) {
 
         const team = await Tournament.findById(id).exec()
 
@@ -56,7 +56,7 @@ module.exports = class TournamentService {
             { new: true, runValidators: true }).populate(
                 'matches').populate({
                     path: 'teams',
-                    populate: { path: 'players', select: '-password' }
+                    populate: {path: 'players'}
                 }).exec()
 
     }

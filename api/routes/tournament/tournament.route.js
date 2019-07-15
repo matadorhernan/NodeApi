@@ -16,8 +16,8 @@ const PaginationUtil = require('../../utils/pagination.util')
 app.get('/api/tournament/:id', [TokenGuard], (req, res) => {
 
     let id = req.params.id;
-
-    TournamentService.findOneById(id)
+    let _TournamentService = new TournamentService()
+    _TournamentService.findOneById(id)
         .then(document => {
             if (!document) {
                 return res.status(404).json({
@@ -62,7 +62,9 @@ app.get('/api/tournaments', [TokenGuard], (req, res) => {
         modality: new RegExp(query.modality) || new RegExp(),
     }
 
-    TournamentService.findAlike(options)
+    let _PaginationUtil = new PaginationUtil()
+    let _TournamentService = new TournamentService()
+    _TournamentService.findAlike(options)
         .then(document => {
             if (!document[0]) {
                 return res.status(404).json({
@@ -71,10 +73,10 @@ app.get('/api/tournaments', [TokenGuard], (req, res) => {
                 })
             }
             return res.json( //responds with a new object merged with success flag
-                ...{
-                    success: true
-                },
-                ...PaginationUtil.paginate(document, pagination)
+                Object.assign(
+                    { success: true },
+                    _PaginationUtil.paginate(document, pagination)
+                )
             )
         })
         .catch(error => {
@@ -95,8 +97,8 @@ app.get('/api/tournaments', [TokenGuard], (req, res) => {
 app.post('/api/tournament', [TokenGuard, RoleGuard], (req, res) => {
 
     let tournaments = req.body
-
-    TournamentService.createOneOrMany(tournaments)
+    let _TournamentService = new TournamentService()
+    _TournamentService.createOneOrMany(tournaments)
         .then(document => {
             if (!document) { //never goes through here but just in case
                 return res.status(500).json({
@@ -106,7 +108,7 @@ app.post('/api/tournament', [TokenGuard, RoleGuard], (req, res) => {
             }
             return res.json({
                 success: true,
-                message: `${document.length} Tournaments Successfully Saved`
+                message: `Tournaments Successfully Saved`
             })
         })
         .catch(error => {
@@ -128,7 +130,8 @@ app.put('/api/tournament/:id', [TokenGuard, RoleGuard], (req, res) => {
 
     let id = req.params.id
     let tournament = req.body
-        TournamentService.updateOne(id, tournament)
+    let _TournamentService = new TournamentService()
+    _TournamentService.updateOne(id, tournament)
         .then(document => {
             if (!document) { //never goes through here but just in case
                 return res.status(500).json({

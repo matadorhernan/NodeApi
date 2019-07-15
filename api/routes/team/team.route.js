@@ -16,8 +16,10 @@ const PaginationUtil = require('../../utils/pagination.util')
 app.get('/api/team/:id', [TokenGuard], (req, res) => {
 
     let id = req.params.id;
-
-    TeamService.findOneById(id)
+    console.log(id);
+    
+    let _TeamService = new TeamService()
+    _TeamService.findOneById(id)
         .then(document => {
             if (!document) {
                 return res.status(404).json({
@@ -48,6 +50,7 @@ app.get('/api/team/:id', [TokenGuard], (req, res) => {
  *  @param limit optional 
  */
 app.get('/api/teams', [TokenGuard], (req, res) => {
+    
     let query = req.query
     let pagination = {
         page: query.page || 1,
@@ -56,8 +59,9 @@ app.get('/api/teams', [TokenGuard], (req, res) => {
     let options = {
         name: new RegExp(query.name) || new RegExp()
     }
-
-    TeamService.findAlike(options)
+    let _PaginationUtil = new PaginationUtil()
+    let _TeamService = new TeamService()
+    _TeamService.findAlike(options)
         .then(document => {
             if (!document[0]) {
                 return res.status(404).json({
@@ -66,10 +70,10 @@ app.get('/api/teams', [TokenGuard], (req, res) => {
                 })
             }
             return res.json( //responds with a new object merged with success flag
-                ...{
-                    success: true
-                },
-                ...PaginationUtil.paginate(document, pagination)
+                Object.assign(
+                    { success: true },
+                    _PaginationUtil.paginate(document, pagination)
+                )
             )
         })
         .catch(error => {
@@ -89,8 +93,8 @@ app.get('/api/teams', [TokenGuard], (req, res) => {
 app.post('/api/team', [TokenGuard, RoleGuard], (req, res) => {
 
     let teams = req.body
-
-    TeamService.createOneOrMany(teams)
+    let _TeamService = new TeamService()
+    _TeamService.createOneOrMany(teams)
         .then(document => {
             if (!document) { //never goes through here but just in case
                 return res.status(500).json({
@@ -99,9 +103,11 @@ app.post('/api/team', [TokenGuard, RoleGuard], (req, res) => {
                 })
             }
 
+            console.log(document);
+
             return res.json({
                 success: true,
-                message: `${document.length} Teams Successfully Saved`
+                message: 'Teams Successfully Saved'
             })
         })
         .catch(error => {
@@ -123,7 +129,8 @@ app.put('/api/team/:id', [TokenGuard, RoleGuard], (req, res) => {
 
     let id = req.params.id
     let team = req.body
-    TeamService.updateOne(id, team)
+    let _TeamService = new TeamService()
+    _TeamService.updateOne(id, team)
         .then(document => {
             if (!document) { //never goes through here but just in case
                 return res.status(500).json({

@@ -5,17 +5,17 @@ module.exports = class TeamService {
 
     async findAll(){
         return await Team.find().populate(
-            { path: 'players', select: '-password' }).exec()
+            'players').exec()
     }
 
     async findAlike(options){
-        return await Team.find(Options).populate(
-            { path: 'players', select: '-password' }).exec()
+        return await Team.find(options).populate(
+            'players').exec()
     }
 
     async findOneById(id){
         return await Team.findById(id).populate(
-            { path: 'players', select: '-password' }).exec()
+            'players').exec()
     }
 
     async createOneOrMany(team){
@@ -32,7 +32,7 @@ module.exports = class TeamService {
 
     }
     
-    async update(id, newTeam) {
+    async updateOne(id, newTeam) {
 
         const team = await Team.findById(id).exec()
 
@@ -45,7 +45,7 @@ module.exports = class TeamService {
 
         return await Team.findByIdAndUpdate(id, newTeam,
              {new: true, runValidators: true}).populate(
-                 { path: 'players', select: '-password' }).exec()
+                 'players').exec()
 
     }
 

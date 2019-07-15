@@ -16,7 +16,7 @@ let tournamentSchema = new Schema({
 
     modality: {
         type: String,
-        required: [true, 'The trounament needs a modality'],
+        required: [true, 'The tournament needs a modality'],
         enum: ['roundRobin', 'knockOut', 'playOffs']
     },
 

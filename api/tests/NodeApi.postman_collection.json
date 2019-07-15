@@ -1,0 +1,657 @@
+{
+	"info": {
+		"_postman_id": "67a754b7-a0d8-4839-a1dc-356a18e932fd",
+		"name": "NodeApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "test@test.test",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "test5@test.test",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "TestUser",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/auth/sign/5d2b053e69a1c70968ef36ee",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"auth",
+								"sign",
+								"5d2b053e69a1c70968ef36ee"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "TestUser",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "test5@test.test",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "ADMIN_ROLE",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "TestPut",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test5@test.test",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "ADMIN_ROLE",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/user/5d2b053e69a1c70968ef36ee",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"5d2b053e69a1c70968ef36ee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/user/5d2acb7527c196100814de99",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"5d2acb7527c196100814de99"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost/api/users?name=TestAdmin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "TestAdmin"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Team",
+			"item": [
+				{
+					"name": "team",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "players",
+									"value": "5d2afcf9542375466c58650a",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Extra Super Cholos",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/team",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"team"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "teams",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "players",
+									"value": "5d2afcf9542375466c58650a",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Extra Super Cholos",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/teams?name=Cholos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"teams"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Cholos"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "team",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "players",
+									"value": "5d2afcf9542375466c58650a",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Extra Super Cholos",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/team/5d2ba4a9ffc90422e0f2dce5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"team",
+								"5d2ba4a9ffc90422e0f2dce5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "team",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "players",
+									"value": "5d2afcf9542375466c58650a",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Los Jeronicas",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/team/5d2ba43de4409a12948322e6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"team",
+								"5d2ba43de4409a12948322e6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tournament",
+			"item": [
+				{
+					"name": "Tournament",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "SpringLeague",
+									"type": "text"
+								},
+								{
+									"key": "sport",
+									"value": "Base Ball",
+									"type": "text"
+								},
+								{
+									"key": "modality",
+									"value": "roundRobin",
+									"type": "text"
+								},
+								{
+									"key": "teams",
+									"value": "5d2ba43de4409a12948322e6",
+									"type": "text"
+								},
+								{
+									"key": "teams",
+									"value": "5d2ba473e4409a12948322e8",
+									"type": "text"
+								},
+								{
+									"key": "teams",
+									"value": "5d2ba4a9ffc90422e0f2dce5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/tournament",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"tournament"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tournament",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost/api/tournament/5d2be40a63a86924e0fdea87",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"tournament",
+								"5d2be40a63a86924e0fdea87"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tournament Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost/api/tournaments?modality=roundRobin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"tournaments"
+							],
+							"query": [
+								{
+									"key": "modality",
+									"value": "roundRobin"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
