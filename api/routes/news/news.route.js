@@ -56,8 +56,9 @@ app.get('/api/news', [TokenGuard], (req, res) => {
     let options = {
         tournament: new RegExp(query.tournament) || new RegExp(),
     }
-
-    TournamentService.findAlike(options)
+    let _PaginationUtil = new PaginationUtil()
+    let _TournamentService = new TournamentService()
+    _TournamentService.findAlike(options)
         .then(document => {
             if (!document[0]) {
                 return res.status(404).json({
@@ -66,10 +67,10 @@ app.get('/api/news', [TokenGuard], (req, res) => {
                 })
             }
             return res.json( //responds with a new object merged with success flag
-                ...{
-                    success: true
-                },
-                ...PaginationUtil.paginate(document, pagination)
+                    Object.assign(
+                        {success: true},
+                        _PaginationUtil.paginate(document, pagination)
+                    )
             )
         })
         .catch(error => {

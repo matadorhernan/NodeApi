@@ -27,9 +27,9 @@ module.exports = class TournamentService {
 
     async createOneOrMany(tournament) {
 
-        if (tournament.length == 1) {
+        if (tournament.name != undefined) {
             tournament = new Tournament(tournament)
-        } else if (tournament.length > 1) {
+        } else {
             tournament.forEach(insert => {
                 return insert = new Tournament(insert)
             })
@@ -49,7 +49,7 @@ module.exports = class TournamentService {
                 message: 'No Teams Where Found'
             }
         }
-
+        newTeam.updated = Date.now()
         return await Tournament.findByIdAndUpdate(
             id,
             newTeam,

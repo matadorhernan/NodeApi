@@ -5,14 +5,13 @@ let Schema = mongoose.Schema;
 let teamSchema = new Schema({
     
     name: {
-        type:String,        
-        default: '',
+        type:String,     
         require:[true,'the team needs a name']
     },
 
     players:[{
         type: Schema.Types.ObjectId,
-         ref: 'User',
+        ref: 'User',
         require:[true,'the team needs a player']
     }],
 
@@ -24,13 +23,7 @@ let teamSchema = new Schema({
     updated: {
         type: Date,
         default: Date.now()
-    },
-
-    deleted:{
-        type:Boolean,
-        default:true
     }
-    
 })
 //teamSchema.plugin(uniqueValidator, { message: '{PATH} debe ser unico' });
 module.exports=mongoose.model('Team',teamSchema);

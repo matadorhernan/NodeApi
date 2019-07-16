@@ -1,7 +1,11 @@
-const _ = require('underscore');
+const _ = require('underscore')
 module.exports =  class RoundRobinUtil {
 
     generateRoundRobin(teams, tournament, metadata = {stage: 'table', group: 'table'}){
+        
+        if(teams[0].name != undefined){
+            teams = _.pluck(teams, '_id') 
+        }
         teams = _.shuffle(teams)
         let roundRobin = new Array()
 
@@ -54,6 +58,7 @@ module.exports =  class RoundRobinUtil {
                 teams = this.nextRound(teams)
             }
         }
+        
         return roundRobin
     }
 

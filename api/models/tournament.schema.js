@@ -44,12 +44,7 @@ let tournamentSchema = new Schema({
     updated: {
         type: Date,
         default: Date.now()
-    },
-
-    deleted: {
-        type: Boolean,
-        default: false
-    },
+    }
 })
 //tournamentSchema.plugin(uniqueValidator, { message: '{PATH} debe ser unico' })
 module.exports = mongoose.model('Tournament', tournamentSchema)

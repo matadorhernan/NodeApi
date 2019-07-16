@@ -1,5 +1,6 @@
 // dependencies
 const Match = require('../models/match.schema')
+const _ = require('underscore')
 
 module.exports = class MatchService {
 
@@ -32,31 +33,34 @@ module.exports = class MatchService {
     }
 
     async createOneOrMany(match) {
-
-        if (match.length == 1) {
+        
+        if (match._id != undefined) {
             match = new Match(match)
-        } else if (match.length > 1) {
+        } else {
             match.forEach(insert => {
-                return insert = new Match(insert)
+                return  insert = new Match(insert)
             })
         }
-
         return await Match.create(match)
 
     }
 
-    async update(id, newMatch) {
+    async updateOne(id, newMatch) {
 
         const match = await Match.findById(id).exec()
-
+        
         if (!match._id) {
-            return {
+            throw error = {
                 success: false,
                 message: 'No Matches Where Found'
             }
         }
+        newMatch.date = newMatch.date || match.date
+        newMatch.updated = Date.now()
 
-        return await Match.findByIdAndUpdate(id, newMatch,
+        return await Match.findByIdAndUpdate(
+            id, 
+            newMatch,
             { new: true, runValidators: true }).populate(
                 'tournament').populate(
                     'localTeam').populate(

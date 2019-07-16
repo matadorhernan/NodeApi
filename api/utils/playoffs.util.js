@@ -3,28 +3,27 @@ const RoundRobinUtil = require('./roundrobin.util')
 module.exports = class PlayOffsUtil {
 
     generatePlayOffs(teams, tournament) {
-        
+        teams = _.pluck(teams, '_id') 
         teams = _.shuffle(teams)
         let groupInfo = this.calculateGroups(teams.length)
+
         let group = 'A'
-
+        let _RoundRobinUtil = new RoundRobinUtil()
         let playOffs = new Array()
-
+        
         for (let i = 0; i < groupInfo.groups; i++) {
+            
             let teamsBatch = _.first(teams, groupInfo.size)
             teams.splice(0, groupInfo.size)
             playOffs.push(
-                RoundRobinUtil.generateRoundRobin(
+                _RoundRobinUtil.generateRoundRobin(
                     teamsBatch,
                     tournament,
                     { stage: 'PlayOffs', group }
                 )
             )
-
-            group = nextGroup(group)
-
+            group = this.nextGroup(group)
         }
-
         playOffs =  _.flatten(playOffs)
         return playOffs
     }
@@ -42,20 +41,19 @@ module.exports = class PlayOffsUtil {
         let data = new Object()
 
         let missingInitial = number
-        let missingFinal = new Number()
-
-        for (probableGroup of groupNumbers) {
-            for (probableSize of groupSizes) {
+        let missingFinal = number
+        
+        for (let probableGroup of groupNumbers) {
+            for (let probableSize of groupSizes) {
                 let closest = probableGroup * probableSize // an loop product trying to reach number 
                 if (closest == number || closest >= number) { //if closest reaches or goes above number
-
                     missingInitial = closest - number  // calculate the missing from number to complete closest
-
-                    if (missingInitial < missingFinal) { //the one that needs the least ammount of teams to reach closest stays
-
+                    
+                    if (missingInitial < missingFinal) { //the one that needs the least amount of teams to reach closest stays
+                        
                         missingFinal = missingInitial
 
-                        data = { //overriding data everytime a closest round gets closer
+                        data = { //overriding data every time a closest round gets closer
                             groups: probableGroup,
                             size: probableSize,
                             missing: missingFinal
@@ -65,6 +63,7 @@ module.exports = class PlayOffsUtil {
             }
         }
         //by the end return the best data result 
+        
         return data
 
     }

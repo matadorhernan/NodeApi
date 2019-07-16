@@ -2,8 +2,10 @@ const _ = require('underscore')
 module.exports = class KnockOutUtil {
 
     generateKnockOut(teams, tournament) {
-
-        teams = _.shuffle(teams)
+        
+        teams = _.pluck(teams, '_id') 
+        //teams = _.shuffle(teams)
+        
         let bracketSizes = [2, 4, 8, 16, 32, 64]
 
         let bracketSize = _.find(bracketSizes, (b) => {
@@ -11,7 +13,7 @@ module.exports = class KnockOutUtil {
         })
 
         let byes = teams.length - (bracketSize / 2) //byes are the number of teams with no opponent
-        let stage = getStage(bracketSize) 
+        let stage = this.getStage(bracketSize) 
 
         let knockOut = new Array()
 
@@ -19,7 +21,7 @@ module.exports = class KnockOutUtil {
 
         for (let i = 0; i < bracketSize / 2; i++) { //runs through create n matches
             if (byes > 0) { //if there are byes they are on the second half
-
+                                
                 knockOut.push({
                     tournament,
                     stage,
@@ -32,7 +34,7 @@ module.exports = class KnockOutUtil {
                 byes--
 
             } else { //when all byes are accounted for
-
+                                
                 knockOut.push({ //then push free passes all as locals
                     tournament,
                     stage,
@@ -42,15 +44,14 @@ module.exports = class KnockOutUtil {
                 })
 
                 //to generate next stages for free passes
-
+                                
                 let local = teams[j + 1] //local is next free pass or current j relative to i
                 let visitor = teams[j + 2] || null //visitor is second next free pass
-
-                if (teams[j + 3]) { // as long as next local exists then push next stage
-                    knockOutBye.push({
-                        
+                
+                if (teams[j + 2]) { // as long as there is a visitor
+                    knockOut.push({
                         tournament,
-                        stage: this.setStage(bracketSize / 2),
+                        stage: this.getStage((bracketSize / 2)),
                         localTeam: local, 
                         visitorTeam: visitor,
                         position: i
@@ -61,7 +62,6 @@ module.exports = class KnockOutUtil {
 
             }
         }
-
         return knockOut
 
     }

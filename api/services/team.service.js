@@ -1,5 +1,6 @@
 // dependencies
 const Team = require('../models/team.schema')
+const _ = require('underscore')
 
 module.exports = class TeamService {
 
@@ -19,15 +20,14 @@ module.exports = class TeamService {
     }
 
     async createOneOrMany(team){
-
-        if(team.length == 1){
+       
+        if (team.name != undefined) {
             team = new Team(team)
-        } else if (team.length > 1){
+        } else{
             team.forEach(insert => {
                 return insert = new Team(insert)
             })
         }
-        
         return await Team.create(team)
 
     }
@@ -37,12 +37,12 @@ module.exports = class TeamService {
         const team = await Team.findById(id).exec()
 
         if(!team._id){
-            return {
+            throw error = {
                 success: false,
                 message: 'No Teams Where Found'
             }
         }
-
+        newTeam.updated = Date.now()
         return await Team.findByIdAndUpdate(id, newTeam,
              {new: true, runValidators: true}).populate(
                  'players').exec()

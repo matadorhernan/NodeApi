@@ -97,14 +97,11 @@ app.post('/api/team', [TokenGuard, RoleGuard], (req, res) => {
     _TeamService.createOneOrMany(teams)
         .then(document => {
             if (!document) { //never goes through here but just in case
-                return res.status(500).json({
+                throw error = {
                     success: false,
                     error: 'Severe Conflict While Saving Teams'
-                })
+                }
             }
-
-            console.log(document);
-
             return res.json({
                 success: true,
                 message: 'Teams Successfully Saved'

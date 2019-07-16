@@ -4,7 +4,7 @@ module.exports = class NodeMailerUtil {
     
     sendEmailInvitation(email,id){
 
-        mailOptions = {
+        let mailOptions = {
             from: this.from,
             to: email,
             subject: 'Invitacion para un torneo de Softtek',
@@ -12,20 +12,18 @@ module.exports = class NodeMailerUtil {
             Has click en el siguiente link para registrarse 
             http://sitiowebnombre.com/invitacion/${id}`
         }
-
+        
         this.transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                console.log("ERROR!!!!!!", error)
-            } else {
-                console.log('Email sent: ' + info.response)
-            }
+                console.log('error on nodemailer util');
+             } 
         })
 
     }
 
     sendEmailInvitationAdmin(email,id){
 
-        mailOptions = {
+        let mailOptions = {
             from: this.from,
             to: email,
             subject: 'Invitacion para unirse como Administrador de Torneos de Softtek',
@@ -37,41 +35,35 @@ module.exports = class NodeMailerUtil {
 
         this.transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                console.log("ERROR!!!!!!", error)
-            } else {
-                console.log('Email sent: ' + info.response)
-            }
+                console.log('error on nodemailer util');
+            } 
         })
 
     }
 
     sendEmailNotification(email,id){
-
-        mailOptions = {
+        let mailOptions = {
             from: this.from,
             to: email,
             subject: 'Nueva notificación',
             text: `El administrador publicó una noticia del torneo ${id}`
         }
-
         this.transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.log("ERROR!!!!!!", error)
-            } else {
-                console.log('Email sent: ' + info.response)
+            if(error){
+                console.log('error on nodemailer util');
             }
         })
     }
 
     constructor(){
 
-        this.from = 'testmailercdg@codellege.com',
+        this.from = 'codellege@gmail.com',
 
         this.transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 user: this.from,
-                pass: 'codellege'
+                pass: 'Codellege'
             }
         })
         

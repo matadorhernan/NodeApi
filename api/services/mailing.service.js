@@ -8,20 +8,20 @@ module.exports = class MailingService {
 
     sendInvitesForTournament(document) {
         
-        for (team of document.teams) {
-            for (player of team.players) {
+        for (let team of document.teams) {
+            for (let player of team.players) {
                 this._NodeMailerUtil.sendEmailInvitation(player.email, document._id)
             }
         }
     }
     
     sendInvitesForAdmins(documents) {
-        if (_.isObject(documents)) {
+        if (documents._id != undefined) {
             if (documents.role == 'ADMIN_ROLE') {
                 this._NodeMailerUtil.sendEmailInvitationAdmin(documents.email, documents._id)
             }
         } else {
-            for (document of documents) {
+            for (let document of documents) {
                 if (document.role == 'ADMIN_ROLE') {
                     this._NodeMailerUtil.sendEmailInvitationAdmin(document.email, document._id)
                 }

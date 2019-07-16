@@ -56,12 +56,14 @@ let matchSchema = new Schema({
         type: Date,
         default: ''
     },
-
-    deleted: {
-        type: Boolean,
-        default: false
+    created: {
+        type: Date,
+        default: Date.now(),
+    },
+    updated:{
+        type: Date,
+        default: Date.now()
     }
-    
 })
 
 module.exports=mongoose.model('Match',matchSchema);

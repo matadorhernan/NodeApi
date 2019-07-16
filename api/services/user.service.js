@@ -22,7 +22,7 @@ module.exports = class UserService {
     }
 
     async createOneOrMany(user) {
-        if (_.isObject(user)) {
+        if (user._id != undefined) {
             if(_.has(user, 'password')){
                 user.password = bcrypt.hashSync(user.password, 10)
             } 

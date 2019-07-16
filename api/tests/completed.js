@@ -19,10 +19,21 @@
  *     |    |__ post D  [Working][TokenGuard,RoleGuard]
  *     |    |__ put  S  [Working][TokenGuard,RoleGuard]
  *     |    
- *     |__ Tournament...[Testing]  
+ *     |__ Tournament...[Tested]  
  *     |    |__ get  S  [Working][TokenGuard]
  *     |    |__ get  P  [Working][TokenGuard]
  *     |    |__ post D  [Working][TokenGuard,RoleGuard]
- *     |    |__ put  S  [ Working] without Guards 
+ *     |    |__ put  S  [Working][TokenGuard,RoleGuard]
+ *     |    
+ *     |__ Match........[Tested]  
+ *     |    |__ get  S  [Working][TokenGuard]
+ *     |    |__ get  P  [Working][TokenGuard]
+ *     |    |__ post D  [Working][TokenGuard,RoleGuard]
+ *     |    |__ put  S  [Working][TokenGuard,RoleGuard]
  *     |    
  */
+
+const KnockOutUtil = require('../utils/knockout.util')
+
+let bs = new KnockOutUtil()
+console.log(bs.generateKnockOut([{_id:1},{_id:2},{_id:3},{_id:4},{_id:3}], 'ggsgs'));
