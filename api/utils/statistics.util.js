@@ -7,16 +7,46 @@ module.exports = class StatisticsUtil {
         let matches = _.filter(document.matches, (match) => {
             return match.localTeam != null && match.visitorTeam != null
         })
-
         //groups matches to count as local and as visitor, since no matches repeat 
-        let localData = _.groupBy(matches, 'localTeam')
-        let visitorDta = _.groupBy(matches, 'visitorTeam')
-
-        for (let group of localData) {
-            this.countData(group, points, true)
+        let localGroups = _.groupBy(matches, 'localTeam')
+        let visitorGroups = _.groupBy(matches, 'visitorTeam')
+        let local = new Array()
+        let visitor = new Array()
+        //counts statistics as local and as visitor for all teams
+        for (let group of localGroups) {
+            local.push(this.countData(group, points, true))
         }
+        for (let group of visitorGroups) {
+            visitor.push(this.countData(group, points, false))
+        }
+        // finds out which teams to account for
+        let teams = _.union(
+            [_.pluck(local, 'team')],
+            [_.pluck(visitor, 'team')]
+        )
+        // sets stats for all teams
+        let statistics = new Array()
+        for (team of teams) {
+            statistics.push(
+                this.sumData(
+                    _.findWhere(local, { team }),
+                    _.findWhere(visitor, { team })
+                )
+            )
+        }
+        return statistics
+    }
 
-
+    sumData(local, vsisitor) {
+        return {
+            team: local.team || visitor.team,
+            points: (local.points || 0) + (vsisitor.points || 0),
+            games: (local.games || 0) + (vsisitor.games || 0),
+            wins: (local.wins || 0) + (vsisitor.wins || 0),
+            ties: (local.ties || 0) + (vsisitor.ties || 0),
+            loses: (local.loses || 0) + (vsisitor.loses || 0),
+            scoreDifference: (local.scoreDifference || 0) + (vsisitor.scoreDifference || 0),
+        }
     }
 
     countData(matches, points, local = true) {
