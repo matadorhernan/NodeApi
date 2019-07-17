@@ -55,6 +55,7 @@ module.exports = class MatchService {
                 message: 'No Matches Where Found'
             }
         }
+        
         newMatch.date = newMatch.date || match.date
         newMatch.updated = Date.now()
 
