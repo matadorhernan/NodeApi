@@ -82,17 +82,16 @@ app.post('/api/matches/:id', [TokenGuard, RoleGuard], (req, res) => { // returns
     let _MailingService = new MailingService()
     let _MatchService = new MatchService()
 
-    // _TournamentService.findAlike({ _id: id, started: false }) //if needed, you can restart tournaments at put
-    //     .then(document => {
-    //         if (!document[0]) {
-    //             throw error = {
-    //                 success: false,
-    //                 error: 'Tournament Not Found or Already Started'
-    //             }
-    //         }
-    //         return 
-            _TournamentService.updateOne(id, { started: true }) //starts the Tournament
-    //    })
+    _TournamentService.findAlike({ _id: id, started: false }) //if needed, you can restart tournaments at put
+        .then(document => {
+            if (!document[0]) {
+                throw error = {
+                    success: false,
+                    error: 'Tournament Not Found or Already Started'
+                }
+            }
+            return _TournamentService.updateOne(id, { started: true }) //starts the Tournament
+        })
         .then(document => {
             let matches = _TournamentUtil.generateMatches(document)
             return _MatchService.createOneOrMany(matches)  //generates matches on database and chains its promise

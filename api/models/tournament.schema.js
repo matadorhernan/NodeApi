@@ -20,6 +20,21 @@ let tournamentSchema = new Schema({
         enum: ['roundRobin', 'knockOut', 'playOffs']
     },
 
+    points: {
+        win: {
+            type: Number,
+            default: 3
+        },
+        tie: {
+            type: Number,
+            default: 1
+        },
+        lose: {
+            type: Number,
+            default: 0
+        },
+    },
+
     started: { // flag for started tournaments
         type: Boolean,
         default: false

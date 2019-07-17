@@ -19,7 +19,7 @@ module.exports = class PlayOffsUtil {
                 _RoundRobinUtil.generateRoundRobin(
                     teamsBatch,
                     tournament,
-                    { stage: 'PlayOffs', group }
+                    { stage: 'groups', group }
                 )
             )
             group = this.nextGroup(group)

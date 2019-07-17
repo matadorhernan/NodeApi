@@ -20,6 +20,10 @@ module.exports = class KnockOutUtil {
         let j = 0
 
         for (let i = 0; i < bracketSize / 2; i++) { //runs through create n matches
+            
+            console.log(i, j);
+            console.log(knockOut);
+            
             if (byes > 0) { //if there are byes they are on the second half
                                 
                 knockOut.push({
@@ -44,7 +48,6 @@ module.exports = class KnockOutUtil {
                 })
 
                 //to generate next stages for free passes
-                console.log(j);
                                 
                 let local = (teams[j] != undefined && teams[j + bracketSize / 2] != undefined) ? null : teams[j]//local is next free pass or current j relative to i
                 local = local || null
@@ -56,7 +59,7 @@ module.exports = class KnockOutUtil {
                         stage: this.getStage((bracketSize / 2)),
                         localTeam: local, 
                         visitorTeam: visitor,
-                        position: i
+                        position: (j+2) / 2 
                     })
                 }
 
@@ -64,6 +67,8 @@ module.exports = class KnockOutUtil {
 
             }
         }
+        
+        console.log(knockOut);
         
         return knockOut
 

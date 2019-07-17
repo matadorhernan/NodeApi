@@ -10,7 +10,7 @@ module.exports = class TournamentUtil {
         let _RoundRobinUtil = new RoundRobinUtil()
         let _KnockOutUtil = new KnockOutUtil()
         let _PlayOffsUtil = new PlayOffsUtil()
-        
+
         switch (document.modality) {
             case 'roundRobin':
                 matches = _RoundRobinUtil.generateRoundRobin(document.teams, document._id)
@@ -22,9 +22,19 @@ module.exports = class TournamentUtil {
                 matches = _PlayOffsUtil.generatePlayOffs(document.teams, document._id)
                 break
         }
-        
         return matches
-
+    } 
+    
+    nextMatch(document) {
+        switch (document.stage) {
+            case 'table':
+                break
+            case 'groups':
+                _PlayOffsUtil.nextMatch(document)
+                break
+            default:
+                _KnockOutUtil.nextMatch(document)
+                break
+        }
     }
-
 }
