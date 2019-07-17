@@ -44,11 +44,13 @@ module.exports = class KnockOutUtil {
                 })
 
                 //to generate next stages for free passes
+                console.log(j);
                                 
-                let local = teams[j + 1] //local is next free pass or current j relative to i
-                let visitor = teams[j + 2] || null //visitor is second next free pass
+                let local = (teams[j] != undefined && teams[j + bracketSize / 2] != undefined) ? null : teams[j]//local is next free pass or current j relative to i
+                local = local || null
+                let visitor = teams[j + 1]
                 
-                if (teams[j + 2]) { // as long as there is a visitor
+                if (visitor) { // as long as there is a visitor
                     knockOut.push({
                         tournament,
                         stage: this.getStage((bracketSize / 2)),
@@ -62,6 +64,7 @@ module.exports = class KnockOutUtil {
 
             }
         }
+        
         return knockOut
 
     }
