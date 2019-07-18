@@ -6,7 +6,7 @@ const app = express();
 app.use(require('./auth/auth.route'))
 app.use(require('./match/match.route'))
 app.use(require('./news/news.route'))
-app.use(require('./stats/stats.route'))
+app.use(require('./tournament/stats.route'))
 app.use(require('./team/team.route'))
 app.use(require('./tournament/tournament.route'))
 app.use(require('./user/user.route'))

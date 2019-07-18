@@ -35,7 +35,7 @@ module.exports = class PlayOffsUtil {
         return playOffs
     }
 
-    updateKnockOut(roudnrobin, document) {
+    async updateKnockOut(roudnrobin, document) {
 
         let groups = _.groupBy(document, 'groups')
         let nextTeams = new Array()
@@ -52,7 +52,7 @@ module.exports = class PlayOffsUtil {
             }
         }
         //mix all groups into one list and starts a knockout
-        let matches = await this._KnockOutUtil.generateKnockOut(_.flatten(nextTeams), document._id)
+        let matches = this._KnockOutUtil.generateKnockOut(_.flatten(nextTeams), document._id)
         
         // filter updated matches to relevant ones only
         matches = _.filter(matches, (match)=>{
@@ -62,7 +62,7 @@ module.exports = class PlayOffsUtil {
             match.visitorTeam == roudnrobin.visitorTeam
         })
 
-        
+        return matches
 
     }
 

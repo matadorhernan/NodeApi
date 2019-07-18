@@ -79,8 +79,6 @@ module.exports = class KnockOutUtil {
             }
         }
 
-        console.log(knockOut);
-
         return knockOut
 
     }

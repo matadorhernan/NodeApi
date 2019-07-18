@@ -101,6 +101,7 @@ app.post('/api/user', [TokenGuard, RoleGuard], (req, res) => {
     let _UserService = new UserService()
     _UserService.createOneOrMany(users)
         .then(document => {
+            
             if (!document) { //never goes through here but just in case
                 throw error = {
                     success: false,
@@ -108,8 +109,8 @@ app.post('/api/user', [TokenGuard, RoleGuard], (req, res) => {
                 }
             }
             
-            let _MailingService = new MailingService()
-            _MailingService.sendInvitesForAdmins(document)
+            //let _MailingService = new MailingService()
+            //_MailingService.sendInvitesForAdmins(document)
 
             return res.json({
                 success: true,

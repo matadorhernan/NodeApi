@@ -3,6 +3,7 @@ require('../../environments/environment')
 //dependencies
 const express = require('express');
 const app = express();
+const _ = require('lodash')
 //guards
 const LocalGuard = require('../../guards/local.guard')
 const RegisterGuard = require('../../guards/register.guard')
@@ -30,12 +31,22 @@ app.post('/api/auth/login', [LocalGuard], (req, res) => {
     let _AuthService = new AuthService()
 
     let token = _AuthService.createToken(req.user)
+    let user = req.user[0]
 
     return res.json({
         success: true,
+        user: {
+            name: user.name,
+            tournaments: user.tournaments,
+            role: user.role,
+            completed: user.completed,
+            created: user.created,
+            updated: user.updated,
+            _id: user._id,
+            email: user.email
+        },
         token
     })
-
 })
 
 app.put('/api/auth/sign/:id', [RegisterGuard], (req, res) => {

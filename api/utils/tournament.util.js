@@ -25,12 +25,7 @@ module.exports = class TournamentUtil {
     nextMatch(document, id) {
 
         let matches = new Array()
-        const match = await this._MatchService.findOneById(id).catch( error =>{
-            throw {
-                success: false,
-                error
-            }
-        })
+        const match = this._MatchService.findOneById(id)
 
         switch (document.modality) {
             case 'playOffs':

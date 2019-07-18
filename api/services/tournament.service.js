@@ -39,20 +39,20 @@ module.exports = class TournamentService {
 
     }
 
-    async updateOne(id, newTeam) {
+    async updateOne(id, newTournament) {
 
-        const team = await Tournament.findById(id).exec()
+        const tournament = await Tournament.findById(id).exec()
 
-        if (!team._id) {
+        if (!tournament._id) {
             throw error = {
                 success: false,
                 message: 'No Teams Where Found'
             }
         }
-        newTeam.updated = Date.now()
+        newTournament.updated = Date.now()
         return await Tournament.findByIdAndUpdate(
             id,
-            newTeam,
+            newTournament,
             { new: true, runValidators: true }).populate(
                 'matches').populate({
                     path: 'teams',
