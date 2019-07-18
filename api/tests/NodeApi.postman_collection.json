@@ -131,7 +131,7 @@
 								},
 								{
 									"key": "email",
-									"value": "test5@test.test",
+									"value": "test2@test.test",
 									"type": "text"
 								},
 								{
@@ -322,7 +322,7 @@
 								},
 								{
 									"key": "name",
-									"value": "Extra Super Cholos",
+									"value": "Vaqueros Ninja",
 									"type": "text"
 								}
 							]
@@ -524,7 +524,7 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "SpringLeague",
+									"value": "Copa de la loma",
 									"type": "text"
 								},
 								{
@@ -534,22 +534,22 @@
 								},
 								{
 									"key": "modality",
-									"value": "roundRobin",
+									"value": "playOffs",
 									"type": "text"
 								},
 								{
 									"key": "teams",
-									"value": "5d2ba43de4409a12948322e6",
+									"value": "5d2dcfbb076164561c405fdb",
 									"type": "text"
 								},
 								{
 									"key": "teams",
-									"value": "5d2ba473e4409a12948322e8",
+									"value": "5d2dd0058d1d225368553c23",
 									"type": "text"
 								},
 								{
 									"key": "teams",
-									"value": "5d2ba4a9ffc90422e0f2dce5",
+									"value": "5d2dd0258d1d225368553c24",
 									"type": "text"
 								}
 							]
@@ -608,7 +608,7 @@
 					"response": []
 				},
 				{
-					"name": "Tournament Copy",
+					"name": "Tournaments",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -632,7 +632,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "http://localhost/api/tournaments?modality=roundRobin",
+							"raw": "http://localhost/api/tournaments?modality=knockOut",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -644,8 +644,224 @@
 							"query": [
 								{
 									"key": "modality",
-									"value": "roundRobin"
+									"value": "knockOut"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tournament",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "sport",
+									"value": "Foot Ball",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "modality",
+									"value": "knockOut",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "started",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/tournament/5d2dd5725756134dd41d78c3?",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"tournament",
+								"5d2dd5725756134dd41d78c3"
+							],
+							"query": [
+								{
+									"key": "modality",
+									"value": "roundRobin",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Match",
+			"item": [
+				{
+					"name": "Matches",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost/api/matches/5d2dd5725756134dd41d78c3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"matches",
+								"5d2dd5725756134dd41d78c3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Matches",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost/api/matches/5d2be40a63a86924e0fdea87",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"matches",
+								"5d2be40a63a86924e0fdea87"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Match",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost/api/match/5d2d56e13d765e033c4e134f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"match",
+								"5d2d56e13d765e033c4e134f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Match",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJUZXN0QWRtaW4iLCJ0b3VybmFtZW50cyI6W10sInJvbGUiOiJBRE1JTl9ST0xFIiwiY29tcGxldGVkIjp0cnVlLCJjcmVhdGVkIjoiMjAxOS0wNy0xNFQwNTo0ODozMS45NDRaIiwidXBkYXRlZCI6IjIwMTktMDctMTRUMDU6NDg6MzEuOTQ0WiIsImRlbGV0ZWQiOmZhbHNlLCJfaWQiOiI1ZDJhYzI3NjFhNDJiYTU5YzhkYjY5YjAiLCJlbWFpbCI6InRlc3RAdGVzdC50ZXN0IiwicGFzc3dvcmQiOiIkMmIkMTAkd1dxUU5XVGU4R2pES05UNlkuSnl4LmwuWWR2VllvTTdPNUVGLkdHSnZEMjcwSndCR2VNQXUifSwiaWF0IjoxNTYzMDg4NTY1LCJleHAiOjE1NjU2ODA1NjV9.Dnzj3oDl6wK7s3WyjFDAB2GPGjnBCB0exBGxhVq5yaA"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost/api/match/5d2dd5725756134dd41d78c3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"match",
+								"5d2dd5725756134dd41d78c3"
 							]
 						}
 					},
