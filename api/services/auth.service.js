@@ -10,7 +10,7 @@ module.exports = class AuthService {
 
         let expiresIn = process.env.TOKEN_EXPIRATION
 
-        return jwt.sign({ user: user[0] },
+        return jwt.sign({ user },
             process.env.SEED, { expiresIn }
         )
 

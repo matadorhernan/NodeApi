@@ -4,6 +4,7 @@ require('../environments/environment')
 const bcrypt = require('bcrypt');
 //modules
 const AuthService = require('../services/auth.service')
+const UserService = require('../services/user.service')
 
 /** $GUARD
  *  User needs to be able to login but to login we receive a body object and 
@@ -17,6 +18,7 @@ let LocalGuard = (req, res, next) => {
     let email = body.email
     let password = body.password
     let _AuthService = new AuthService()
+    let _UserService = new UserService()
 
     if (!email || !password) {
         return res.status(422).json({
@@ -27,14 +29,14 @@ let LocalGuard = (req, res, next) => {
 
     _AuthService.findAlike({ email, deleted: false, signed: true})
         .then(document => { //promise returns an object of documents with results
-
-            if (!document[0]) { //if theres a result sign valid guard
+            
+            if (document.length == 0) { //if theres a result sign valid guard
                 throw error = {
                     success: false,
                     error: 'Unauthorized Request From User, Wrong Email or Password'
                 }
             }
-            
+
             if(!bcrypt.compareSync(password, document[0].password)){
                 throw error = {
                     success: false,
@@ -42,11 +44,16 @@ let LocalGuard = (req, res, next) => {
                 }
             }
             
+            return _UserService.findOneById(document[0]._id)
+
+        })
+        .then(document => {
+            
             req.valid = true
             req.user = document
 
             next()
-
+            
         })
         .catch(error => { // error in mongo
             return res.status(500).json({

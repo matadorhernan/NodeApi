@@ -109,8 +109,8 @@ app.post('/api/user', [TokenGuard, RoleGuard], (req, res) => {
                 }
             }
             
-            //let _MailingService = new MailingService()
-            //_MailingService.sendInvitesForAdmins(document)
+            let _MailingService = new MailingService()
+            _MailingService.sendInvitesForAdmins(document)
 
             return res.json({
                 success: true,
