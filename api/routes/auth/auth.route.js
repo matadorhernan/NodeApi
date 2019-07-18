@@ -30,8 +30,8 @@ app.post('/api/auth/login', [LocalGuard], (req, res) => {
 
     let _AuthService = new AuthService()
 
-    let token = _AuthService.createToken(req.user[0])
-    let user = req.user[0]
+    let token = _AuthService.createToken(req.user)
+    let user = req.user
 
     return res.json({
         success: true,
