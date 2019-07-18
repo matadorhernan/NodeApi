@@ -1,3 +1,5 @@
+const _ = require('underscore')
+
 module.exports = class StatisticsUtil {
 
     getDocumentStats(document) {
@@ -37,65 +39,49 @@ module.exports = class StatisticsUtil {
         return statistics
     }
 
-    sumData(local, vsisitor) {
+    sumData(local, visitor) {
         return {
             team: local.team || visitor.team,
-            points: (local.points || 0) + (vsisitor.points || 0),
-            games: (local.games || 0) + (vsisitor.games || 0),
-            wins: (local.wins || 0) + (vsisitor.wins || 0),
-            ties: (local.ties || 0) + (vsisitor.ties || 0),
-            loses: (local.loses || 0) + (vsisitor.loses || 0),
-            scoreDifference: (local.scoreDifference || 0) + (vsisitor.scoreDifference || 0),
+            points: (local.points || 0) + (visitor.points || 0),
+            games: (local.games || 0) + (visitor.games || 0),
+            wins: (local.wins || 0) + (visitor.wins || 0),
+            ties: (local.ties || 0) + (visitor.ties || 0),
+            loses: (local.loses || 0) + (visitor.loses || 0),
+            scoreDifference: (local.scoreDifference || 0) + (visitor.scoreDifference || 0),
         }
     }
 
     countData(matches, points, local = true) {
 
+        let w = 0
+        let t = 0
+        let l = 0
+        let g = 0
+        let sf = 0
+        let sa = 0
+
         for (let match of matches) {
-
-            let w = 0
-            let t = 0
-            let l = 0
-            let g = 0
-            let sf = 0
-            let sa = 0
-
+            g++
+            local ? sf += match.localScore : sf += match.visitorScore
+            local ? sa += match.visitorScore :  sa += match.localScore
             if (match.localTeam > match.visitorTeam) {
-                if (local) {
-                    w++
-                    g++
-                    sf += match.localScore
-                } else {
-                    l++
-                    g++
-                    sa += match.localScore
-                }
-            } else if (match.localTeam == match.visitorTeam) {
-                if (local) {
-                    t++
-                    g++
-                }
-            } else {
-                if (local) {
-                    l++
-                    g++
-                    sa += match.visitorScore
-                } else {
-                    w++
-                    g++
-                    sf += match.visitorScore
-                }
-            }
+                local ? w++ : l++
 
-            return {
-                team: (local) ? match.localTeam : match.visitorTeam,
-                points: w * points.wins + t * points.ties + l * points.loses,
-                games: g,
-                wins: w,
-                ties: t,
-                loses: l,
-                scoreDifference: sf - sa
+            } else if (match.localTeam == match.visitorTeam) {
+                t++
+            } else {
+                local ? l++ : w++
             }
+        }
+
+        return {
+            team: (local) ? match.localTeam : match.visitorTeam,
+            points: w * points.win + t * points.tie + l * points.lose,
+            games: g,
+            wins: w,
+            ties: t,
+            loses: l,
+            scoreDifference: sf - sa
         }
     }
 }

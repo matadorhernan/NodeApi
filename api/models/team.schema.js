@@ -8,6 +8,12 @@ let teamSchema = new Schema({
         type:String,     
         require:[true,'the team needs a name']
     },
+    
+    tournament: {
+        type: Schema.Types.ObjectId,
+        ref: 'Tournament',
+        default: null
+    },
 
     players:[{
         type: Schema.Types.ObjectId,
