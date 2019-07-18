@@ -2,6 +2,7 @@
 const KnockOutUtil = require('./knockout.util')
 const RoundRobinUtil = require('./roundrobin.util')
 const PlayOffsUtil = require('./playoffs.util')
+const MatchService = require('../services/match.service')
 
 module.exports = class TournamentUtil {
 
@@ -21,21 +22,30 @@ module.exports = class TournamentUtil {
         return matches
     }
 
-    nextMatch(document) {
+    nextMatch(document, id) {
 
         let matches = new Array()
+        const match = await this._MatchService.findOneById(id).catch( error =>{
+            throw {
+                success: false,
+                error
+            }
+        })
+
         switch (document.modality) {
             case 'playOffs':
-                matches = this._PlayOffsUtil.updateKnockOut(document)
+                matches = this._PlayOffsUtil.updateKnockOut(match, document)
                 break
             case 'knockOut':
-                matches = this._KnockOutUtil.nextMatch(document)
+                matches = this._KnockOutUtil.knockOutNext(match, document)
                 break
         }
+
         return matches
     }
 
     constructor() {
+        this._MatchService = new MatchService()
         this._RoundRobinUtil = new RoundRobinUtil()
         this._KnockOutUtil = new KnockOutUtil()
         this._PlayOffsUtil = new PlayOffsUtil()

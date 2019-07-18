@@ -1,11 +1,22 @@
 const _ = require('underscore')
 module.exports = class KnockOutUtil {
 
+    knockOutNext(knockout, document) {
+        let nextTeam = (knockout.localScore > knockout.visitorScore) ? knockout.localTeam : knockout.visitorTeam
+        return {
+            tournament: document._id,
+            stage: this.getStage(this.setStage(knockout.stage) / 2),
+            localTeam: (knockout.position % 2 == 0) ? null : nextTeam ,
+            visitorTeam: (knockout.position % 2 == 0) ? nextTeam : null ,
+            position: Math.round(knockout.position / 2)
+        }
+    }
+
     generateKnockOut(teams, tournament) {
-        
-        teams = _.pluck(teams, '_id') 
+
+        teams = _.pluck(teams, '_id')
         //teams = _.shuffle(teams)
-        
+
         let bracketSizes = [2, 4, 8, 16, 32, 64]
 
         let bracketSize = _.find(bracketSizes, (b) => {
@@ -13,19 +24,19 @@ module.exports = class KnockOutUtil {
         })
 
         let byes = teams.length - (bracketSize / 2) //byes are the number of teams with no opponent
-        let stage = this.getStage(bracketSize) 
+        let stage = this.getStage(bracketSize)
 
         let knockOut = new Array()
 
         let j = 0
 
         for (let i = 0; i < bracketSize / 2; i++) { //runs through create n matches
-            
+
             console.log(i, j);
             console.log(knockOut);
-            
+
             if (byes > 0) { //if there are byes they are on the second half
-                                
+
                 knockOut.push({
                     tournament,
                     stage,
@@ -38,7 +49,7 @@ module.exports = class KnockOutUtil {
                 byes--
 
             } else { //when all byes are accounted for
-                                
+
                 knockOut.push({ //then push free passes all as locals
                     tournament,
                     stage,
@@ -48,18 +59,18 @@ module.exports = class KnockOutUtil {
                 })
 
                 //to generate next stages for free passes
-                                
+
                 let local = (teams[j] != undefined && teams[j + bracketSize / 2] != undefined) ? null : teams[j]//local is next free pass or current j relative to i
                 local = local || null
                 let visitor = teams[j + 1]
-                
+
                 if (visitor) { // as long as there is a visitor
                     knockOut.push({
                         tournament,
                         stage: this.getStage((bracketSize / 2)),
-                        localTeam: local, 
+                        localTeam: local,
                         visitorTeam: visitor,
-                        position: (j+2) / 2 
+                        position: (j + 2) / 2
                     })
                 }
 
@@ -67,9 +78,9 @@ module.exports = class KnockOutUtil {
 
             }
         }
-        
+
         console.log(knockOut);
-        
+
         return knockOut
 
     }

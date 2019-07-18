@@ -36,7 +36,7 @@ app.put('/api/match/scores/:id', [TokenGuard, RoleGuard], (req, res) => {
                     document
                 })
             }
-            return _TournamentUtil.nextMatch(document)
+            return _TournamentUtil.nextMatch(document, id)
         })
         .catch(error => {
             return res.status(500).json({

@@ -35,7 +35,7 @@ module.exports = class PlayOffsUtil {
         return playOffs
     }
 
-    updateKnockOut(document) {
+    updateKnockOut(roudnrobin, document) {
 
         let groups = _.groupBy(document, 'groups')
         let nextTeams = new Array()
@@ -52,8 +52,17 @@ module.exports = class PlayOffsUtil {
             }
         }
         //mix all groups into one list and starts a knockout
-        nextTeams = _.flatten(nextTeams)
-        return this._KnockOutUtil.generateKnockOut(nextTeams, document._id)
+        let matches = await this._KnockOutUtil.generateKnockOut(_.flatten(nextTeams), document._id)
+        
+        // filter updated matches to relevant ones only
+        matches = _.filter(matches, (match)=>{
+            return match.localTeam == roudnrobin.localTeam ||
+            match.localTeam == roudnrobin.visitorTeam ||
+            match.visitorTeam == roudnrobin.localTeam ||
+            match.visitorTeam == roudnrobin.visitorTeam
+        })
+
+        
 
     }
 
