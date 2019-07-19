@@ -31,7 +31,7 @@ app.put('/api/match/scores/:id', [TokenGuard, RoleGuard], (req, res) => {
             return _TournamentService.findOneById(document.tournament)
         })
         .then(document => {
-            if (document.modality == 'roundRobin') {
+            if (document.modality == 'roundRobin') { //if it were to be a roundrobin it needs to finish here
                 return res.json({
                     success: true,
                     document
@@ -39,36 +39,19 @@ app.put('/api/match/scores/:id', [TokenGuard, RoleGuard], (req, res) => {
             }
             return _TournamentUtil.nextMatch(document, id) //obtains next knockOuts and updates generated matches for playOffs
         })
-        .then(documents => {
-            for (let document of documents) {
-                findDocument = _.omit(document, ['localTeam', 'visitorTeam', 'localScore', 'visitorScore'])
-                _MatchService.findAlike(findDocument)
-                    .then(document => {
-                        if (!document[0]) {
-                            // Document not created yet
-                            _MatchService.createOneOrMany(document)
-                        } else {
-                            // Document found
-                            _MatchService.updateOne(document[0]._id, document)
-                        }
-                    })
-                    .error(error => {
-                        return res.status(500).json({
-                            success: false,
-                            error
-                        })
-                    })
+        .then(matches => {
+            for (let match of matches) {
+                sanitizedMatch = _.omit(match, ['localScore', 'visitorScore', 'localTeam', 'visitorTeam'])
+                _MatchService.updateOrCreateOne(sanitizedMatch, match)
             }
-            return _.pluck(documents, '_id')
+            return _MatchService.findByTournamentId(matches[0].tournament) //All matches of relative tournament
         })
         .then(document => {
             return _TournamentService.updateOne(document[0].tournament, {
-                $push: {
-                    matches: document
-                }
-            })
+                    matches: _.pluck(document, '_id')
+                })
         })
-        .then(document=>{
+        .then(document => {
             return res.json({
                 success: true,
                 document

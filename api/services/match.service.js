@@ -69,6 +69,13 @@ module.exports = class MatchService {
 
     }
 
+    async updateOrCreateOne(options, match){ 
+        return await Match.update(options, match, {upsert: true, setDefaultsOnInsert: true, new: true}).populate(
+            'tournament').populate(
+                'localTeam').populate(
+                    'visitorTeam').exec()
+    }
+
     constructor() { }
 
 };

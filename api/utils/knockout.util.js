@@ -6,8 +6,8 @@ module.exports = class KnockOutUtil {
         return {
             tournament: document._id,
             stage: this.getStage(this.setStage(knockout.stage) / 2),
-            localTeam: (knockout.position % 2 == 0) ? null : nextTeam ,
-            visitorTeam: (knockout.position % 2 == 0) ? nextTeam : null ,
+            localTeam: (knockout.position % 2 == 0) ? undefined : nextTeam ,
+            visitorTeam: (knockout.position % 2 == 0) ? nextTeam : undefined ,
             position: Math.round(knockout.position / 2)
         }
     }

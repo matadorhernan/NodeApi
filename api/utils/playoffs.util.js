@@ -35,9 +35,9 @@ module.exports = class PlayOffsUtil {
         return playOffs
     }
 
-    async updateKnockOut(roudnrobin, document) {
+    async updateKnockOut(roundrobin, document) {
 
-        let groups = _.groupBy(document, 'groups')
+        let groups = _.groupBy(document.matches, 'groups')
         let nextTeams = new Array()
 
         for (let group of groups) {
@@ -56,10 +56,10 @@ module.exports = class PlayOffsUtil {
         
         // filter updated matches to relevant ones only
         matches = _.filter(matches, (match)=>{
-            return match.localTeam == roudnrobin.localTeam ||
-            match.localTeam == roudnrobin.visitorTeam ||
-            match.visitorTeam == roudnrobin.localTeam ||
-            match.visitorTeam == roudnrobin.visitorTeam
+            return match.localTeam == roundrobin.localTeam ||
+            match.localTeam == roundrobin.visitorTeam ||
+            match.visitorTeam == roundrobin.localTeam ||
+            match.visitorTeam == roundrobin.visitorTeam
         })
 
         return matches

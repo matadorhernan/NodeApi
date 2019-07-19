@@ -29,7 +29,16 @@ module.exports = class TournamentUtil {
 
         switch (document.modality) {
             case 'playOffs':
-                matches = this._PlayOffsUtil.updateKnockOut(match, document)
+                if(document.matches[0].stage == 'groups'){
+                    matches = this._PlayOffsUtil.updateKnockOut(match, document)
+                } else if (document.matches[0].stage != undefined){
+                    matches = this._KnockOutUtil.knockOutNext(match, document)
+                } else {
+                    throw error ={
+                        success: false,
+                        error: 'PlayOff Next Failed'
+                    }
+                }
                 break
             case 'knockOut':
                 matches = this._KnockOutUtil.knockOutNext(match, document)
