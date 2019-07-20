@@ -36,10 +36,7 @@ module.exports = class TournamentUtil {
                 } else if (document.matches[0].stage != undefined) {
                     matches = this._KnockOutUtil.knockOutNext(match, document)
                 } else {
-                    throw error = {
-                        success: false,
-                        error: 'PlayOff Next Failed'
-                    }
+                    throw error = 'PlayOff Next Failed'
                 }
                 break
             case 'knockOut':
@@ -64,17 +61,14 @@ module.exports = class TournamentUtil {
                     }
                 }) //sets the tournament on all teams and pushes them to user
                 .catch(error => {
-                    throw error = {
-                        success: false,
-                        error
-                    }
+                    throw error 
                 })
         }
 
         return tournament
     }
 
-    UsersTournament(oldTeam, newTeam) {
+    usersTournament(oldTeam, newTeam) {
         let tournament = newTeam.tournament
         let oldPlayers = oldTeam.players
         let newPlayers = newTeam.players
@@ -101,10 +95,7 @@ module.exports = class TournamentUtil {
                 }
             })
             if (!users) {
-                throw error = {
-                    success: false,
-                    error: 'Failed to Delete Tournament Id from Removed Users'
-                }
+                throw error = 'Failed to Delete Tournament Id from Removed Users'
             }
             for (user of users) {
                 let tournaments = new Array()
@@ -114,20 +105,14 @@ module.exports = class TournamentUtil {
                     }
                 }
                 this._UserService.updateOne(user._id, { tournaments }).catch(error => {
-                    throw {
-                        success: false,
-                        error
-                    }   
+                    throw error  
                 })
             }
         }
 
         if (addPlayers.length > 0) {
             this._UserService.manyPushTournaments(_.pluck(addPlayers, '_id'), tournament).catch(error => {
-                throw {
-                    success: false,
-                    error
-                }   
+                throw error
             })
         }
 

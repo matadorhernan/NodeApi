@@ -126,6 +126,9 @@ app.put('/api/team/:id', [TokenGuard, RoleGuard], (req, res) => {
 
     let id = req.params.id
     let team = req.body
+
+    delete team.tournament // to put a tournament use match:route or to remove finish tournament
+
     let _TeamService = new TeamService()
     let _TournamentUtil = new TournamentUtil()
     let oldTeam = await _TeamService.findOneById(id)
@@ -145,8 +148,8 @@ app.put('/api/team/:id', [TokenGuard, RoleGuard], (req, res) => {
                     error: 'Severe Conflict While Updating User'
                 })
             }
-            let newTeam = document
-            return _TournamentUtil(oldTeam, newTeam)
+            let newTeam = document //if the tournament is not present skip util
+            return (newTeam.tournament != undefined) ? _TournamentUtil.usersTournament(oldTeam, newTeam) : newTeam
         })
         .then(document=>{
             return res.json({
