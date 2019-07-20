@@ -6,3 +6,5 @@ app.put('/api/tournament/finish/:id', [TokenGuard, RoleGuard], (req, res)=>{
     let id = req.params.id
     
 })
+
+module.exports = app

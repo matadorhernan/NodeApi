@@ -105,7 +105,7 @@ app.post('/api/news', [TokenGuard], (req, res) => {
             }
             return res.json({
                 success: true,
-                message: `${document.length} News Successfully Saved`
+                message: 'News Successfully Saved'
             })
         })
         .catch(error => {
