@@ -9,7 +9,6 @@ const MatchService = require('../../services/match.service')
 const MailingService = require('../../services/mailing.service')
 const TournamentService = require('../../services/tournament.service')
 const TournamentUtil = require('../../utils/tournament.util')
-
 /** $QUERY
  * Needs an started tournament id on params is a match id
  * @param id match._id
@@ -100,10 +99,13 @@ app.post('/api/matches/:id', [TokenGuard, RoleGuard], (req, res) => { // returns
             let matchIds = _.pluck(document, '_id')
             return _TournamentService.updateOne(id, { matches: matchIds }) //inserts matches on tournament and chains its promise
         })
+        .then(document=>{ 
+            return _TournamentUtil.initMetadata(document) // returns the same doc and sets users and teams with the new tournament
+        })
         .then(document => {
 
             _MailingService.sendInvitesForTournament(document)
-
+            
             return res.json({
                 success: true,
                 documents: document
@@ -142,4 +144,5 @@ app.put('/api/match/:id', [TokenGuard, RoleGuard], (req, res) => {
             })
         })
 })
+
 module.exports = app

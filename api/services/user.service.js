@@ -10,7 +10,7 @@ const CompletedUtil = require('../utils/completed.util')
 module.exports = class UserService {
 
     async findAll() {
-        return await User.find({deleted: false}).populate('tournaments').exec()
+        return await User.find({ deleted: false }).populate('tournaments').exec()
     }
 
     async findAlike(options) {
@@ -23,15 +23,15 @@ module.exports = class UserService {
 
     async createOneOrMany(user) {
         if (user.email != undefined) {
-            if(_.has(user, 'password')){
+            if (_.has(user, 'password')) {
                 user.password = bcrypt.hashSync(user.password, 10)
-            } 
+            }
             user = new User(user)
         } else {
             user.forEach(insert => {
-                if(_.has(insert, 'password')){
+                if (_.has(insert, 'password')) {
                     insert.password = bcrypt.hashSync(insert.password, 10)
-                } 
+                }
                 return insert = new User(insert)
             })
         }
@@ -48,17 +48,24 @@ module.exports = class UserService {
                 error: 'No Users Where Found'
             }
         }
-        
+
         let _CompletedUtil = new CompletedUtil()
         newUser = _CompletedUtil.checkUser(newUser, user)
-        
+
         return await User.findByIdAndUpdate(id, newUser,
             { new: true, runValidators: true }).populate('tournaments').exec()
     }
 
-    async deleteOne(id){
-        return await User.findByIdAndUpdate(id, {deleted: true, updated: Date.now()},
-        { new: true, runValidators: true }).exec()
+    async manyPushTournaments(users, tournaments) {
+        return User.updateMany(
+            { '_id': { $in: users } },
+            { $push: { tournaments } },
+            { new: true, runValidators: true }).populate('tournaments').exec()
+    }
+
+    async deleteOne(id) {
+        return await User.findByIdAndUpdate(id, { deleted: true, updated: Date.now() },
+            { new: true, runValidators: true }).exec()
     }
 
     constructor() { }

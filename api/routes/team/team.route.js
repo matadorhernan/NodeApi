@@ -7,7 +7,7 @@ const RoleGuard = require('../../guards/role.guard')
 //modules
 const TeamService = require('../../services/team.service')
 const PaginationUtil = require('../../utils/pagination.util')
-
+const TournamentUtil = require('../../utils/tournament.util')
 /** $QUERY /api/team/:id 
  *  Gets a single team by id and id is to be provided in params
  *  all authenticated users have access to this route 
@@ -127,6 +127,16 @@ app.put('/api/team/:id', [TokenGuard, RoleGuard], (req, res) => {
     let id = req.params.id
     let team = req.body
     let _TeamService = new TeamService()
+    let _TournamentUtil = new TournamentUtil()
+    let oldTeam = await _TeamService.findOneById(id)
+
+    if(!oldTeam){
+        return res.status(404).json({
+            success: false,
+            error: 'Team Not Found'
+        })
+    }
+    
     _TeamService.updateOne(id, team)
         .then(document => {
             if (!document) { //never goes through here but just in case
@@ -135,15 +145,16 @@ app.put('/api/team/:id', [TokenGuard, RoleGuard], (req, res) => {
                     error: 'Severe Conflict While Updating User'
                 })
             }
+            let newTeam = document
+            return _TournamentUtil(oldTeam, newTeam)
+        })
+        .then(document=>{
             return res.json({
                 success: true,
                 documents: document
             })
         })
         .catch(error => {
-            if (error.message) {
-                return res.status(404).json(error)
-            }
             return res.status(500).json({
                 success: false,
                 error
