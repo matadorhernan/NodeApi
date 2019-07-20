@@ -89,7 +89,7 @@ module.exports = class TournamentUtil {
         }
 
         if (delPlayers.length > 0) {
-            let users = await this._UserService.findAlike({
+            let users = this._UserService.findAlike({
                 '_id': {
                     $in: delPlayers
                 }

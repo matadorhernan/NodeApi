@@ -131,7 +131,7 @@ app.put('/api/team/:id', [TokenGuard, RoleGuard], (req, res) => {
 
     let _TeamService = new TeamService()
     let _TournamentUtil = new TournamentUtil()
-    let oldTeam = await _TeamService.findOneById(id)
+    let oldTeam = _TeamService.findOneById(id)
 
     if(!oldTeam){
         return res.status(404).json({
